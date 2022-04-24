@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas圆弧测试</title>
+</head>
+<body>
+    <canvas id="arc" width="600px" height="300px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("arc");
+    var ctx = context.getContext("2d");
+
+    // arcTo() 测试
+    // 将3个点连接起来
+    ctx.beginPath();
+    ctx.strokeStyle = "#5c2223";
+    ctx.moveTo(10, 10);
+    ctx.lineTo(50, 50);
+    ctx.lineTo(100, 30);
+    ctx.stroke();
+
+    // 观察圆弧在3个点之间的位置
+    ctx.beginPath();
+    ctx.strokeStyle = "#e16c96";
+    ctx.moveTo(10, 10);
+    ctx.arcTo(50, 50, 100, 30, 200);
+    ctx.stroke();
+
+
+    // arc() 测试
+    // // 绘制一个边框圆形
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#7cabb1";
+    // ctx.lineWidth = 5;
+    // // 绘制一个以(60, 60)为圆心，半径为50的圆
+    // ctx.arc(60, 60, 50, 0, 2 * Math.PI, false);
+    // // 绘制边框圆形
+    // ctx.stroke();
+    // ctx.closePath();
+    //
+    // // 绘制一个填充圆形
+    // ctx.beginPath();
+    // ctx.fillStyle = "#f8df70";
+    // // 绘制一个顺时针半圆
+    // ctx.arc(170, 60, 50, 0, Math.PI, false);
+    // ctx.fill();
+    // ctx.closePath();
+    //
+    // // 绘制一个填充圆形
+    // ctx.beginPath();
+    // ctx.fillStyle = "#f8df70";
+    // // 绘制一个顺时针半圆
+    // ctx.arc(280, 60, 50, 0, Math.PI, true);
+    // ctx.fill();
+    // ctx.closePath();
+
+</script>
+</html>

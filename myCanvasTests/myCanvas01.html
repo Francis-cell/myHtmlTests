@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas等比缩放测试</title>
+    <style type="text/css">
+        #can {
+            /*width: 600px;*/
+            /*height: 300px;*/
+            /*background-color: #ef82a0;*/
+        }
+    </style>
+</head>
+<body>
+    <canvas id="can" width="300px" height="300px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("can");
+    var ctx = context.getContext("2d");
+
+    // // 在默认初始化的画布上绘制一个width=30,height=60的矩形
+    // ctx.rect(0, 0 , 30, 60);
+    // ctx.fillStyle = "#CDF2CA";
+    // ctx.fill();
+
+    // // 在默认的画布上绘制一个 width 和 height 均为50px的矩形
+    ctx.rect(20, 20, 50, 50);
+    ctx.fillStyle = "#CDF2CA";
+    ctx.fill();
+</script>
+</html>

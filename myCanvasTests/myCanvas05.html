@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贝塞尔曲线测试</title>
+</head>
+<body>
+    <canvas id="bse" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("bse");
+    var ctx = context.getContext("2d");
+
+    // 三次贝塞尔曲线测试
+    // 首先将4个点连接起来
+    ctx.beginPath();
+    ctx.strokeStyle = "#5c2223";
+    ctx.moveTo(10, 10);
+    ctx.lineTo(50, 50);
+    ctx.lineTo(100, 70);
+    ctx.lineTo(150, 40);
+    ctx.stroke();
+
+    // 观察三次贝塞尔曲线在4点之间的位置
+    ctx.beginPath();
+    ctx.strokeStyle = "#e16c96";
+    ctx.moveTo(10, 10);
+    ctx.bezierCurveTo(50, 50, 100, 70, 150, 40);
+    ctx.stroke();
+
+    // // 三次贝塞尔曲线测试
+    // // 首先将4个点连接起来
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#5c2223";
+    // ctx.moveTo(10, 10);
+    // ctx.lineTo(50, 50);
+    // ctx.lineTo(100, 30);
+    // ctx.lineTo(150, 70);
+    // ctx.stroke();
+    //
+    // // 观察三次贝塞尔曲线在4点之间的位置
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#e16c96";
+    // ctx.moveTo(10, 10);
+    // ctx.bezierCurveTo(50, 50, 100, 30, 150, 70);
+    // ctx.stroke();
+
+    // // 二次贝塞尔曲线测试
+    // // 首先将三个点连接起来
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#5c2223";
+    // ctx.moveTo(10, 10);
+    // ctx.lineTo(50, 50);
+    // ctx.lineTo(100, 30);
+    // ctx.stroke();
+    //
+    // // 观察二次贝塞尔曲线在3点之间的位置
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#e16c96";
+    // ctx.moveTo(10, 10);
+    // ctx.quadraticCurveTo(50, 50, 100, 30);
+    // ctx.stroke();
+</script>
+</html>

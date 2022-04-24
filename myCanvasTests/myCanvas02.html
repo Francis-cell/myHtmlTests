@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myCanvas测试02</title>
+    <style>
+        #test01 {
+            width: 100px;
+            height: 100px;
+            /*background-color: darkcyan;*/
+        }
+
+        #img01 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img id="img01" src="../img/test01.jpg" alt="图片加载失败">
+    <canvas id="test01"></canvas>
+</body>
+
+<script type="application/javascript">
+    var canvas = document.getElementById("test01");
+    var ctx = canvas.getContext('2d');
+
+    // 获取img01
+    var img = document.getElementById("img01");
+
+    console.log("canvas的宽和高的值：")
+    console.log(canvas.offsetHeight);
+    console.log(canvas.offsetWidth);
+
+
+
+    // 图片的加载需要时间，加载完成之前调用这个方法的话，它将不会调用
+    // ctx.drawImage(img, 0, 0);
+
+    // 解决方式1(img.onload方式)
+    // 监测img的加载情况，一旦img加载完成，就调用绘制图片的方式将图片绘制到canvas里面去
+    // img.onload = function (){
+    //     ctx.drawImage(img, 0, 0);
+    // }
+
+    // 解决方式2
+    // 将图片加载和drawImage的加载分开加载，img在上，加载完成之后才使用drawImage
+    window.onload = function (){
+        ctx.drawImage(img, 0, 0);
+    }
+
+</script>
+</html>

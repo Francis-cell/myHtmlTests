@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas变换</title>
+</head>
+<body>
+    <canvas id="canvasChange" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasChange");
+    var ctx = context.getContext("2d");
+
+    // 首先绘制出x轴和y轴
+    ctx.beginPath();
+    ctx.strokeStyle = "#2f2f35";
+    ctx.lineWidth = 5;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 100);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(100, 0);
+    ctx.stroke();
+
+    // 然后绘制出一个矩形
+    ctx.beginPath();
+    ctx.fillStyle = "#1661ab";
+    ctx.fillRect(10, 10, 30, 30);
+
+    // ========================伸缩变换========================
+    // 首先平移
+    ctx.translate(100, 100);
+    // 然后进行缩放调整
+    ctx.scale(-1, -1);
+
+    // 首先绘制出x轴和y轴
+    ctx.beginPath();
+    ctx.strokeStyle = "#f1ca17";
+    ctx.lineWidth = 2;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 100);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(100, 0);
+    ctx.stroke();
+
+    // 设置负数的缩放因子
+    ctx.beginPath();
+    ctx.fillStyle = "#2bae85";
+    ctx.fillRect(10, 10, 30, 30);
+
+    // // 伸缩属性
+    // ctx.translate(50, 50);
+    // // 将x轴变为原本的2倍，y轴不变
+    // ctx.scale(2, 1);
+    // // 绘制出此时的坐标系x轴和y轴的位置
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#ef82a0";
+    // ctx.lineWidth = 2;
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(0, 100);
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(100, 0);
+    // ctx.stroke();
+    //
+    // // 同样的，绘制一个相同大小的矩形，并观察它所在的位置
+    // ctx.beginPath();
+    // ctx.fillStyle = "#bc84a8";
+    // ctx.fillRect(10, 10, 30, 30);
+
+
+
+
+
+
+    // // ========================旋转变换========================
+    // // 平移
+    // ctx.translate(150, 50);
+    // // 顺时针旋转45度
+    // ctx.rotate(45 * Math.PI / 180);
+    //
+    // // 绘制出此时的坐标系x轴和y轴的位置
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#ef82a0";
+    // ctx.lineWidth = 2;
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(0, 100);
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(100, 0);
+    // ctx.stroke();
+    //
+    // // 同样的，绘制一个相同大小的矩形，并观察它所在的位置
+    // ctx.beginPath();
+    // ctx.fillStyle = "#bc84a8"
+    // ctx.fillRect(10, 10, 30, 30);
+
+
+
+    // ========================平移变换========================
+    // // 调用平移的方法
+    // // x轴和y轴都平移50px
+    // ctx.translate(50, 50);
+    // // 绘制出此时的x轴和y轴的位置
+    // ctx.beginPath();
+    // ctx.strokeStyle = "#ef82a0";
+    // ctx.lineWidth = 2;
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(0, 100);
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(100, 0);
+    // ctx.stroke();
+    //
+    // // 然后在相同的坐标上绘制一个相同的矩形
+    // ctx.beginPath();
+    // ctx.fillStyle = "#bc84a8";
+    // ctx.fillRect(10, 10, 30, 30);
+
+</script>
+</html>

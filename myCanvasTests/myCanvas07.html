@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas背景</title>
+    <style>
+        #myImg {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img id="myImg" src="../img/7.jpg" alt="">
+    <canvas id="canvasBackground" width="4000px", height="3000px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasBackground");
+    var ctx = context.getContext("2d");
+
+    // 绘制背景图像
+    const img = new Image();
+    img.src = "../img/7.jpg";
+    // 绘制图像
+    // 方法1
+    img.onload = function () {
+        // 图片绘制到canvas上
+        ctx.drawImage(img, 0, 0);
+    }
+
+    // 方法2
+    window.onload = function () {
+        // 图片绘制到canvas上
+        ctx.drawImage(img, 2000, 0)
+    }
+</script>
+</html>

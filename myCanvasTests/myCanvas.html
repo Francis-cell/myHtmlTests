@@ -3,8 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Canvas学习</title>
+    <style type="text/css">
+        #myCanvas01{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+<!--     引入自定义js -->
+<!--    <script type="application/javascript" src="../myJs/myCanvasJs/myCanvas.js"></script>-->
 </head>
 <body>
-    <p>canvas</p>
+    <canvas id="myCanvas01"></canvas>
+
+<!--    <canvas id="myCanvas02">-->
+<!--        <img src="../img/2.jpg" alt=""/>-->
+<!--    </canvas>-->
 </body>
+<script type="application/javascript">
+    var canvas = document.getElementById("myCanvas01");
+    // 获取画布的2D渲染上下文
+    var ctx = canvas.getContext("2d");
+
+    // =======================绘制矩形======================
+    // // 1、清除一部分画布
+    // // 绘制黄色背景
+    // ctx.beginPath();
+    // ctx.fillStyle = "#5dd0e2";
+    // ctx.fillRect(0, 0, canvas.width, canvas.height)
+    //
+    // // 清除一部分画布
+    // ctx.clearRect(10, 10, canvas.width, canvas.height)
+
+    // // 2、填充矩形
+    // // 给整个canvas填充一个浅蓝色的背景色
+    // ctx.fillStyle = "#5dd0e2";
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // // 从(20, 20)坐标开始，填充一个半个canvas宽度和半个canvas高度的绿色矩形
+    // ctx.fillStyle = "#17d56b";
+    // ctx.fillRect(20, 20, canvas.width / 2, canvas.height / 2);
+
+    // // 3、绘制一个矩形边框【使用当前的笔触】
+    // // 设置一个绿色的阴影
+    // ctx.shadowColor = "#17d56b";
+    // ctx.shadowBlur = 20;
+    //
+    // // 向内扩展笔触的边框宽度
+    // ctx.lineJoin = "bevel";
+    // ctx.lineWidth = 5;
+    //
+    // // 设置笔触颜色为浅蓝色
+    // ctx.strokeStyle =  "#5dd0e2";
+    // ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+
+    // =======================绘制文本======================
+    // ctx.font = "50px serif";
+    // ctx.fillStyle = "#5dd0e2";
+    // ctx.fillText("测试文本", 50, 50);
+
+    // ctx.font = "50px serif";
+    // ctx.strokeStyle = "#5dd0e2";
+    // ctx.strokeText("测试文本", 50, 50);
+
+
+</script>
 </html>

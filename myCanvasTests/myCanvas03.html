@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myCanvas03</title>
+</head>
+<body>
+    <canvas id="myCanvas03" width="400px" height="400px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("myCanvas03");
+    var ctx = context.getContext("2d");
+
+    // // 将画布默认的状态放置在栈中
+    // ctx.save();
+    // // 当前的填充样式
+    // ctx.fillStyle = "#66a9c9"
+    // // 绘制矩形，效果显示为上面定义的那种颜色
+    // ctx.fillRect(10, 10, 30, 30);
+    // // 弹出栈中顶端的状态，这个时候红色的填充样式会被弹出的状态覆盖
+    // // 因为默认画布的fillStyle的值为 黑色，所以再次绘制矩形，将会绘制出黑色的矩形
+    // ctx.restore();
+    // // 绘制矩形，这里显示的效果将会是黑色的
+    // ctx.fillRect(10, 60, 30, 30);
+
+
+    // 测试 ctx.save() 保存其他内容
+    ctx.beginPath();
+    ctx.rect(10, 10, 50, 50);
+    ctx.strokeStyle = "#66a9c9";
+    ctx.lineWidth = 10;
+    // ctx.strokeStyle = "#381924";
+    ctx.stroke();
+    ctx.closePath();
+
+    // 此处以上面的代码块为模板，线条颜色为 浅蓝色，线条宽度为10px进行保存
+    ctx.save();
+
+    // 单独修改矩形的边框颜色为粉红色
+    ctx.beginPath();
+    ctx.rect(70, 10, 50, 50);
+    ctx.strokeStyle = "#e16c96";
+    ctx.stroke();
+    ctx.closePath();
+
+    // 下面的这个代码块，将上面最近一次压入栈中的strokeStyle恢复到保存的状态，恢复到浅蓝色
+    ctx.beginPath();
+    ctx.restore();
+    ctx.rect(130, 10, 50, 50);
+    ctx.stroke();
+    ctx.closePath();
+
+
+    // 单独修改矩形的边框的宽度为1px
+    ctx.beginPath();
+    ctx.rect(190, 10, 50, 50);
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.closePath();
+
+
+    // 将最近一次压入栈中的边框宽度弹出栈，然后恢复到保存的10px
+    ctx.beginPath();
+    // ctx.restore();
+    ctx.rect(250, 10, 50, 50);
+    ctx.stroke();
+    ctx.closePath();
+
+
+
+
+
+    // 设置绘制的样式
+    // ctx.lineWidth = 3;
+
+    // // stroke 不使用闭合路径
+    // ctx.beginPath();
+    // ctx.moveTo(20, 20);
+    // ctx.lineTo(50, 20);
+    // ctx.lineTo(50, 50);
+    // ctx.stroke();
+    //
+    // // stroke 使用闭合路径
+    // ctx.beginPath();
+    // ctx.moveTo(70, 20);
+    // ctx.lineTo(100, 20);
+    // ctx.lineTo(100, 50);
+    // ctx.closePath(); // 闭合路径调用的方法
+    // ctx.stroke();
+
+
+    // ctx.lineWidth = 10;
+    //
+    // // 1、绘线末端圆形显示
+    // ctx.lineCap = "round";
+    // ctx.beginPath();
+    // ctx.moveTo(10, 10);
+    // ctx.lineTo(10, 50);
+    // ctx.stroke();
+    //
+    // // 2、绘线末端以方形结束（默认的那个）
+    // ctx.lineCap = "butt";
+    // ctx.beginPath();
+    // ctx.moveTo(30, 10);
+    // ctx.lineTo(30, 50);
+    // ctx.stroke();
+    //
+    // // 3、绘线末端以方形结束（非默认版）
+    // ctx.lineCap = "square";
+    // ctx.beginPath();
+    // ctx.moveTo(50, 10);
+    // ctx.lineTo(50, 50);
+    // ctx.stroke();
+</script>
+</html>
