@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>颜色选择器</title>
+    <style type="text/css">
+        #colorPickerPicture{
+            float: left;
+        }
+
+        #hoveredColor{
+            margin-left: 65px;
+            margin-top: 30px;
+            /*font-size: 40px;*/
+            /*font-family: "Microsoft YaHei UI";*/
+        }
+
+        #selectedColor{
+            margin-left: 65px;
+            margin-top: 30px;
+            /*font-size: 40px;*/
+            /*font-family: "Microsoft YaHei UI";*/
+        }
+
+        .divMod{
+            width: 630px;
+            height: 630px;
+            margin-top: 30px;
+            margin-left: 30px;
+            float: left;
+            background-color: gray;
+            /* 设置边框样式 */
+            border-style: groove;
+            border-radius: 30px;
+            border-width: 50px;
+            /*border-color: aquamarine;*/
+            border-color: #8cc269;
+        }
+
+        .fontValue{
+            width: 500px;
+            height: 100px;
+            margin-left: 50px;
+            /* 字体属性 */
+            font-size: 40px;
+            font-family: "Microsoft YaHei UI";
+            text-align: center;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="colorPickerPicture" width="1500px" height="3000px"></canvas>
+    <div class="divMod">
+        <div id="hoveredColor" style="width: 500px; height: 500px; border: 30px"></div>
+        <p id="hoverValue" class="fontValue"></p>
+    </div>
+    <div class="divMod">
+        <div id = "selectedColor" style="width: 500px; height: 500px; border: 30px "></div>
+        <p id="selectValue" class="fontValue"></p>
+    </div>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("colorPickerPicture");
+    var ctx = context.getContext("2d");
+
+    // 将显示颜色的div绑定给对应的变量
+    var hoveredColor = document.getElementById("hoveredColor");
+    var selectedColor = document.getElementById("selectedColor");
+    // 两个p标签（用来存储显示信息的）
+    var p1 = document.getElementById("hoverValue");
+    var p2 = document.getElementById("selectValue");
+    // 获取边框的属性
+    var borderDiv = document.getElementsByClassName("divMod")
+
+
+    // 图片加载部分
+    let img = new Image();
+    // 这条属性没见过
+    img.crossOrigin = "anonymous";
+    img.src = "../../img/7.jpg";
+    img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+        img.style.display = "none";
+    }
+
+    // 定义像素颜色获取方法
+    function picker(event, destination, pTag) {
+        var x = event.layerX;
+        var y = event.layerY;
+        console.log("event的值为：", event);
+        // 读取指定坐标点(x, y)位置的一个像素点的rgba的值
+        var pixel = ctx.getImageData(x, y, 1, 1);
+        var data = pixel.data;
+
+        // 因为rgba使用的透明度属性是一个0-1之间的数值，但是在ImgData中的数据实际上是一个0-255的数据
+        // 所以实际上在处理的时候，需要将它 / 255，得到的就是最终的结果
+        const rgba = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255})`;
+        // 设置div颜色
+        destination.style.background = rgba;
+        // 原本的这个方法是将相关的rgba信息显示到div标签上
+        // destination.textContent = rgba;
+
+        // 现在为了更好的显示，将这两个标签分别显示在一个p标签里面
+        // 动态设置字体的颜色的值
+        pTag.style.color = rgba;
+        // 字体的内容
+        pTag.textContent = rgba;
+
+        return rgba;
+    }
+
+    // 绑定事件
+    context.addEventListener("mousemove", function (event) {
+        picker(event, hoveredColor, p1);
+    })
+
+    context.addEventListener("click", function (event) {
+        picker(event, selectedColor, p2);
+    })
+</script>
+</html>

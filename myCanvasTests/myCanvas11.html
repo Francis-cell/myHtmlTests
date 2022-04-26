@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas画布导出为图像</title>
+</head>
+<body>
+    <canvas id="canvasToPicture" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasToPicture");
+    var ctx = context.getContext("2d");
+
+    // 构造一个矩形
+    ctx.fillStyle = "blue";
+    ctx.fillRect(10, 10, 50, 50);
+    // 使用默认的属性进行导出即可(png格式，图片质量为0.92)
+    const dataUrl = context.toDataURL();
+    console.log(dataUrl);
+</script>
+</html>

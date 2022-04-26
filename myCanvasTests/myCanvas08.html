@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas像素测试</title>
+</head>
+<body>
+<!--    <canvas id="canvasPx" width="4000px" height="3000px"></canvas>-->
+    <canvas id="canvasPx" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasPx");
+    var ctx = context.getContext("2d");
+
+    // // 创建一个 10 * 10 的imgData对象
+    // // ctx.createImageData(width, height);
+    // const imgData = ctx.createImageData(10, 10);
+    // // 给定rgba的颜色
+    // const rgba = [255, 0, 0, 255];
+    // for (let y = 0; y < 10; y++) {
+    //     for (let x = 0; x < 10; x++) {
+    //         // 将所以的像素点全部设置为红色
+    //         setPixelInfo(imgData, x, y, rgba);
+    //     }
+    // }
+    //
+    // // 将imgData对象写入到(100, 100)开始的位置
+    // // ctx.putImageData(imgData的值, x轴偏移量, y轴偏移量)
+    // ctx.putImageData(imgData, 100, 100);
+
+
+    // // 创建img对象
+    // const img = new Image();
+    // img.src = "../img/7.jpg";
+
+
+    // 获取imageData中某个坐标的像素的值 ==方法测试==
+    ctx.fillStyle = "red";
+    ctx.fillRect(10, 10, 1, 1);
+    const imgData = ctx.getImageData(10, 10, 1, 1);
+    // const imgData = ctx.getImageData(0, 0, context.width, context.height);
+    // 获取(10, 10)这个坐标点的像素信息
+    const pixel = getPixelInfo(imgData, 0, 0);
+    // const pixel = getPixelInfo(imgData, 10, 10);
+    console.log(pixel);
+
+
+    // img.onload = () => {
+        // 绘制图像
+        // ctx.drawImage(img, 0, 0);
+        // 获取绘制图像区域内的相关信息
+        // const imgData = ctx.getImageData(0, 0, 800, 1500);
+        // console.log(imgData);
+
+        // 将ImageData重新绘制回去
+        // // 使用ctx.putImageData方法将ImageData重新写入到画布中去
+        // ctx.putImageData(imgData, 100, 100); // 应该是有默认值的
+        // ctx.putImageData(imgData, 100, 100, 0, 0, 1000, 1000);
+
+        // 创建新的ImageData对象
+        // // 1、根据老的ImageData对象，创建一个新的ImageData对象
+        // const imageDataByData = ctx.createImageData(imgData);
+        // console.log("imgData创建方式：", imageDataByData);
+        // // 2、根据指定的宽、高，创建一个新的ImageData对象
+        // const imgDataByRect = ctx.createImageData(100, 100);
+        // console.log("采用宽高的创建方式：", imgDataByRect);
+    // }
+
+
+    // 获取imgData中某个坐标的像素
+    function getPixelInfo(imgData, x, y) {
+        // 下面这种获取方式，实际上就是将imgData中的width和data属性的值分别获取出来，
+        // 然后赋值给对应的变量
+        const {width, data} = imgData;
+        const pixel = [];
+        // 找到当前像素点在数组中的下标值
+        const index = (y * width + x) * 4;
+        pixel[0] = data[index];
+        pixel[1] = data[index + 1];
+        pixel[2] = data[index + 2];
+        pixel[3] = data[index + 3];
+        return pixel;
+    }
+
+    // 设置 imgData 中某个坐标的像素
+    function setPixelInfo(imgData, x, y, rgba) {
+        const {width, data} = imgData;
+        const index = (y * width + x) * 4;
+        data[index] = rgba[0];
+        data[index + 1] = rgba[1];
+        data[index + 2] = rgba[2];
+        data[index + 3] = rgba[3];
+    }
+</script>
+</html>

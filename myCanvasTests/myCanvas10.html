@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图像合成设置</title>
+</head>
+<body>
+    <canvas id="canvasSynthesis" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasSynthesis");
+    var ctx = context.getContext("2d");
+
+    // 设置图像合成的属性值
+    ctx.globalCompositeOperation = "xor"; // 默认值
+    ctx.fillStyle = "#93b5cf";
+    ctx.fillRect(50, 50, 50, 50);
+    ctx.fillStyle = "#d276a3";
+    ctx.fillRect(75, 75, 50, 50);
+</script>
+</html>

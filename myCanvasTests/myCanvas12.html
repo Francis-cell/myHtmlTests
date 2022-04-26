@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas事件操作</title>
+</head>
+<body>
+    <canvas id="canvasEvent" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasEvent");
+    var ctx = context.getContext("2d");
+
+    // 绘制一个路径矩形
+    ctx.rect(10, 10, 50, 50);
+    ctx.fill();
+
+    // 给canvas绑定点击事件
+    context.onclick = event => {
+        // 鼠标点击位置距离canvas的offsetX和offsetY，就相当于在canvas中的坐标位置
+        const {offsetX, offsetY} = event;
+        const  isInPath = ctx.isPointInPath(offsetX, offsetY);
+        console.log(`当前点击坐标为: (${offsetX}, ${offsetY})`,`是否在路径列表中: ${isInPath}`);
+    }
+</script>
+</html>

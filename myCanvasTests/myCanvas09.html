@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas透明度</title>
+</head>
+<body>
+  <canvas id="canvasAlpha" width="500px" height="500px"></canvas>
+</body>
+<script type="application/javascript">
+    var context = document.getElementById("canvasAlpha");
+    var ctx = context.getContext("2d");
+
+    // 透明度测试
+    // 将画布的全局的透明度设置为0.2
+    // 这条属性将会影响到全局的cnavas里面的所有图像的透明度，有效范围是 0(完全透明) -- 1(完全不透明)，默认是1
+    ctx.globalAlpha = .2;
+    ctx.fillStyle = "#d1c2d3";
+    ctx.fillRect(20, 20, 50, 50);
+    ctx.fillStyle = "#93b5cf";
+    ctx.fillRect(80, 20, 50, 50);
+</script>
+</html>
