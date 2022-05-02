@@ -47,6 +47,11 @@
             text-align: center;
             font-weight: bolder;
         }
+
+        .sectionTest{
+            width: 100px;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +64,9 @@
         <div id = "selectedColor" style="width: 500px; height: 500px; border: 30px "></div>
         <p id="selectValue" class="fontValue"></p>
     </div>
+
+    <section class="sectionTest" id="bgmj"></section>
+    <section class="sectionTest" id="famj"></section>
 </body>
 <script type="application/javascript">
     var context = document.getElementById("colorPickerPicture");
@@ -72,6 +80,10 @@
     var p2 = document.getElementById("selectValue");
     // 获取边框的属性
     var borderDiv = document.getElementsByClassName("divMod")
+
+    // 移动的div的相关属性
+    let bgmj = document.getElementById("bgmj");
+    let famj = document.getElementById("famj");
 
 
     // 图片加载部分
@@ -88,7 +100,18 @@
     function picker(event, destination, pTag) {
         var x = event.layerX;
         var y = event.layerY;
-        console.log("event的值为：", event);
+
+        // if (event.type === "click") {
+        //     console.log("event的值为：", event);
+        // }
+        // event中有【下面的这几组x、y，它们的不同在哪里】
+        // 1、clientX、clientY
+        // 2、layerX、layerY
+        // 3、movementX、movementY
+        // 4、screenX、screenY
+        // 5、tiltX、tiltY
+        // 6、x、y
+
         // 读取指定坐标点(x, y)位置的一个像素点的rgba的值
         var pixel = ctx.getImageData(x, y, 1, 1);
         var data = pixel.data;
@@ -108,6 +131,42 @@
         pTag.textContent = rgba;
 
         return rgba;
+    }
+
+    // 定义一个放大框，用于鼠标hover的时候触发，在鼠标右下角出现对应的属性
+    function mafnifyingBox(event, img) {
+        // 首先获取当前鼠标尖端所在的坐标
+        let x = event.layerX;
+        let y = event.layerY;
+        // 然后从这个坐标为中心，形成一个宽度为300px,高度为250px的一个方形框
+        // let imgData = ctx.getImageData(img.width - 150 - x, img.height - 125 - y, x + 150, y + 125);
+        // 将这个方形框显示到鼠标所在的位置的右下方一段距离处
+        let xLeft = img.width - 150 - x;
+        let yLeft = img.height - 125 - y;
+        let w = 300;
+        let h = 250;
+        // px、py(这个地方不是很明白)
+        let px = 100*xLeft/w;
+        let py = 100*yLeft/y;
+
+        // 设置位置属性
+        let str = px + "%" + " " + py + "%";
+
+        // 动态的div的属性
+        // 基本的设计思路：
+        // 1、消除掉原本的那个div(鼠标移除的时候触发)
+        // 2、然后在原本的div的位置上重新计算一个位置，用来作为新的div的位置属性
+        bgmj.style.display = "block"; // 设置显示属性(使得div能够重新显示出来)【显示出来的就是一个新的重新计算好位置的div】
+        bgmj.style.backgroundPosition = "" + str + "";
+        // ??? 应该是调整边距的，上边距和左边距都为20px
+        bgmj.style.top = event.layerY + 20 + "px";
+        bgmj.style.left = event.layerX + 20 + "px";
+    }
+
+    // 定义一个事件，当鼠标移动离开图像的时候触发，将原本的div去掉
+    function hideBox(event) {
+        // 将原本显示的那个div给隐藏起来
+        bgmj.style.display = "none";
     }
 
     // 绑定事件
