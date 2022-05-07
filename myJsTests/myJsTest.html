@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS测试</title>
+</head>
+<body>
+    <button onclick="abc()">点击测试</button>
+</body>
+<script>
+    function abc() {
+        let num1 = 1;
+        let num2 = 1;
+        let str = "1";
+        // 运行结果：true
+        console.log(num1 === num2)
+        // 运行结果：true
+        console.log(num1 == num2)
+        // 运行结果：true
+        console.log(num1 == str)
+        // 运行结果：false
+        console.log(num1 === str)
+
+
+
+        // let a = "123";
+        // let b = "123";
+        // let a1 = {name: "1", age: 12};
+        // let b1 = {};
+        // let c1 = {name: "1", age: 12};
+        // let d1 = {};
+        // // 运行结果： true
+        // console.log(a === b);
+        // // 运行结果：false
+        // console.log(a1 === b1);
+        // // 运行结果：true
+        // console.log(JSON.stringify(a1) === JSON.stringify(c1));
+        // // 运行结果：false
+        // console.log(b1 === d1);
+        // // 运行结果：true
+        // console.log(JSON.stringify(b1) === JSON.stringify(d1));
+        //
+        // // 基本数据类型的判断
+        // let a2 = 123;
+        // let b2 = 123;
+        // let c2 = 12;
+        // // 运行结果：true
+        // console.log(a2 === b2);
+        // // 运行结果：false
+        // console.log(a2 === c2);
+    }
+</script>
+</html>
