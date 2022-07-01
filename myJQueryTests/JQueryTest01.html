@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQueryTest01测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div id="div1" style="width: 200px; height:200px; text-align: center; background-color: #8fb2c9; margin-top: 20px"></div>
+    <div id="div2" style="width: 200px; height:200px; text-align: center; background-color: #8fb2c9; margin-top: 20px"></div>
+    <div id="div3" style="width: 200px; height:200px; text-align: center; background-color: #8fb2c9; margin-top: 20px"></div>
+    <button onclick="dollerMap()">$.map</button>
+</body>
+<script>
+    /**
+     * $.map()方法测试
+     */
+    function dollerMap() {
+        let arr = ["a", "b", "c", "d", "e", "f", "g"];
+
+        // 显示结果： a, b, c, d, e, f, g
+        $("#div1").text(arr.join(", "));
+        let arr1 = $.map(arr, function (v, i) {
+            return (v.toUpperCase() + i);
+        });
+        console.log("arr1的值为：", arr1);
+
+        // 显示结果：A0, B1, C2, D3, E4, F5, G6
+        $("#div2").text(arr1.join(", "));
+        let arr2 = $.map(arr, function (a) {
+            return a + a;
+        });
+        console.log("arr2的值为：", arr2);
+
+        // 显示结果：aa, bb, cc, dd, ee, ff, gg
+        $("#div3").text(arr2.join(", "));
+    }
+</script>
+</html>
