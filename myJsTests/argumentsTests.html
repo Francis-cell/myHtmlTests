@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>argumentsTests</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div id="div1" style="height: 200px; width: 200px; background-color: crimson"></div>
+    <button onclick="showInDivDom(sum(1, 2, 3, 4, 5))">floatAdd测试</button>
+</body>
+<script>
+    function showInDivDom(value) {
+        $("#div1").text(value);
+    }
+
+    /**
+     * 定义sum方法
+     */
+    function sum(){
+        var result = 0;
+        for(var i = 0;i<arguments.length;i++){
+            result+=arguments[i];
+        }
+        return result;
+    }
+</script>
+</html>

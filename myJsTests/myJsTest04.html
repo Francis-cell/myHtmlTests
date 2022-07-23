@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>float方法测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <input type="text" maxlength="10">
+    <button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    var resultArr = [
+        {
+            "ID": "root"
+        },
+        {
+            "ID": "root2"
+        },
+        {
+            "PARENT_ID": "root2",
+            "ID": "zjd33"
+        },
+        {
+            "PARENT_ID": "root2",
+            "ID": "zjd34"
+        },
+        {
+            "PARENT_ID":"root",
+            "ID": "root3",
+        },
+        {
+            "PARENT_ID":"root3",
+            "ID": "root4",
+        }
+    ];
+
+    // 提取最底层部分的值
+    function getTreeChidrenValues(arr) {
+        debugger;
+        let lastList = [];
+        // 深拷贝arr里面的值给arrCopy
+        let [ ...arrCopy ] = arr;
+        console.log("拷贝之后的arrCopy的值为：", arrCopy);
+        for (let i = 0; i < arrCopy.length; i++) {
+            for (let j = 0; j < arr.length; j++) {
+                // 判断是否是同一个节点，如果不是同一个节点，则继续
+                if (arr[j].ID !== arrCopy[i].ID) {
+                    // 是父子节点的关系
+                    if (arr[j].PARENT_ID === arrCopy[i].ID) {
+                        // 在arrayCopy中删掉父节点的那个值
+                        arrCopy.splice(i,1);
+                        break;
+                    }
+                }
+            }
+            // 将arrCopy的长度进行更改，更换成保留下来的节点的值
+            arrCopy = lastList;
+        }
+        return lastList;
+    }
+
+    // 处理
+    function dateDeal() {
+        getTreeChidrenValues(resultArr);
+    }
+</script>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS测试</title>
+    <!-- #在head 里 script标签 通过src=引用 -->
+    <script src="../JQuery/jquery.min.js"></script>
+</head>
+<body>
+    <button onclick="abc()">点击测试</button>
+    <button onclick="def()">点击测试1</button>
+    <button onclick="ghi()">点击测试2</button>
+    <button onclick="ghi1()">点击测试3</button>
+    <button onclick="jkl()">点击测试4</button>
+    <button onclick="jkl1()">点击测试5</button>
+    <button onclick="adcs()">点击测试6</button>
+    <button onclick="adcs1()">点击测试7</button>
+    <button onclick="modifyFun()">元素比较</button>
+    <button onclick="getElementType()">元素类型获取</button>
+</body>
+<script>
+    // 获取一个元素的类型
+    function getElementType() {
+        let obj1 = {"a": 1, "b": 2, "c": 3};
+        let boolean01 = true;
+        let str = "Strings";
+        let str1 = "";
+        let undefined;
+        let nullValue = null;
+        console.log(typeOf(nullValue));
+    }
+
+    // 判断一个元素的数据类型
+    function typeOf(obj) {
+        let res = Object.prototype.toString.call(obj).split(' ')[1];
+        res = res.substring(0, res.length - 1).toLowerCase();
+        return res;
+    }
+
+    function modifyFun() {
+        // 对象比较
+        let obj1 = {"a": 1, "b": 2, "c": 3};
+        let obj2 = {"a": 1, "b": 2, "c": 3};
+        let obj3 = {"a": 3, "b": 2, "c": 3};
+        // 数组比较
+        let arr1 = [1, 2, 3]
+        let arr2 = [1, 2, 3]
+        let arr3 = [2, 2, 3]
+        // 字符串比较
+        let str1 = "str123";
+        let str2 = "str123";
+        let str3 = "str123456";
+        // number类型
+        let num1 = 123;
+        let num2 = 123;
+        let num3 = 12345;
+        let num4 = 123.1;
+        let num5 = 123.1;
+        let num6 = 123.67;
+        // boolean值的比较
+        let bo01 = true;
+        let bo02 = true;
+        let bo03 = false;
+        let nullValue1 = null;
+        let nullValue2 = null;
+
+        // modify(obj1, obj2);
+        // modify(arr1, arr2);
+        if (modifyValues(nullValue1, nullValue2)) {
+            console.log("两个元素的值一致！");
+        } else {
+            console.log("两个元素的值不一致！");
+        }
+    }
+
+    /**
+     * 比较两个元素是否一样(如果两个元素都是undefined，那么直接判定为不一致)
+     */
+    function modifyValues(a, b) {
+        console.log(typeOf(a));
+        console.log("此处传进来的a的值为：", a);
+        // 如果a的类型和b的类型不一致，直接返回false
+        if (typeOf(a) !== typeOf(b)) {
+            return false;
+        }
+        // 排除undefined类型、
+        if (typeOf(a) === "undefined") {
+            return false;
+        }
+        // object对象类型的比较
+        if (typeOf(a) === "object") {
+            // 说明是对象类型的比较
+            return (JSON.stringify(a) === JSON.stringify(b));
+        }
+        // array数组类型的比较
+        else if (typeOf(a) === "array") {
+            // 使用for循环判断
+            for (let i = 0; i < a.length; i++) {
+                if (b.indexOf(a[i]) < 0) {
+                    // 元素不存在
+                    return false;
+                }
+            }
+            return true;
+        }
+        // String字符串类型的比较、Number类型的比较、null值类型的比较
+        else if (
+            typeOf(a) === "string" ||
+            typeOf(a) === "number" ||
+            typeOf(a) === "null"
+        ) {
+            if (a === b) {
+                return true;
+            }
+            return false;
+        }
+        // Boolean布尔值的比较
+        else if (typeOf(a) === "boolean") {
+            if (a && b) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function adcs1() {
+        let obj = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5};
+        console.log("obj的长度为：", Object.keys(obj).length);
+        let tempKeys = Object.keys(obj);
+        let tempValues = Object.values(obj);
+        for (let i = 0; i < tempKeys.length; i++) {
+            let k = tempKeys[i];
+            let v = tempValues[i];
+            console.log("k的值为：", k, " v的值为： ", v);
+        }
+    }
+    function adcs() {
+        let obj = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5};
+        $.each(obj, function(k, v) {
+            console.log("k的值为：", k, " v的值为： ", v);
+        });
+    }
+    function jkl1() {
+        let arr = [ "a", "b", "c", "d", "e", "a", "a"];
+        for (let i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+        }
+    }
+    function jkl() {
+        let arr = [ "a", "b", "c", "d", "e", "a", "a"];
+        $.each(arr, function(i, n) {
+            console.log("n的值为：", n)
+            // n.MODIFYPLANFEE = n.PLANFEE;
+            // n.MODIFYTAXFEE = n.TAXFEE;
+            // n.MODIFYPLANDATE = n.PLANDATE;
+        });
+    }
+    function ghi1() {
+        let arr = [ "a", "b", "c", "d", "e", "a", "a"];
+        let lastArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === "a") {
+                lastArr.push(arr[i]);
+            }
+        }
+        console.log("lastArr的值为：", lastArr);
+        return lastArr;
+    }
+    function ghi() {
+        let arr = [ "a", "b", "c", "d", "e", "a", "a"];
+        let ourside = $.map(arr, function(n, i) {
+            if (n === "a") {
+                return n;
+            }
+        });
+        console.log("ourside的值为：", ourside);
+    }
+    /**
+     * 运行示例：
+     * let kkk = [{"a":1, "j": 2, "k": 3}, {"b":2}, {"c":3}, {"d":4}, {"e":5}, {"f":6}, {"g":7}, {"h":8}, {"i":9}];
+     * let arr = ["a","b","h","j"];
+     * 返回值：
+     * 0: {a: 1, j: 2, b: null, h: null}
+     * 1: {b: 2, a: null, h: null, j: null}
+     * 2: {a: null, b: null, h: null, j: null}
+     * 3: {a: null, b: null, h: null, j: null}
+     * 4: {a: null, b: null, h: null, j: null}
+     * 5: {a: null, b: null, h: null, j: null}
+     * 6: {a: null, b: null, h: null, j: null}
+     * 7: {h: 8, a: null, b: null, j: null}
+     * 8: {a: null, b: null, h: null, j: null}
+     * */
+    function def() {
+        let kkk = [{"a":1, "j": 2, "k": 3}, {"b":2}, {"c":3}, {"d":4}, {"e":5}, {"f":6}, {"g":7}, {"h":8}, {"i":9}];
+        let arr = ["a","b","h","j"];
+        for (let i = 0; i < kkk.length; i++) {
+            // 获取kkk内部元素中对象的所有key的值
+            let tempKeys = Object.keys(kkk[i]);
+            for (let j = 0; j < tempKeys.length; j++) {
+                if (arr.indexOf(tempKeys[j]) < 0) {
+                    delete kkk[i][tempKeys[j]];
+                }
+            }
+            tempKeys = Object.keys(kkk[i]);
+            for (let j = 0; j < arr.length; j++) {
+                if (tempKeys.indexOf(arr[j]) < 0) {
+                    kkk[i][arr[j]] = null;
+                }
+            }
+        }
+        return kkk;
+    }
+    function abc() {
+        let kkk = [{"a":1, "j": 2, "k": 3}, {"b":2}, {"c":3}, {"d":4}, {"e":5}, {"f":6}, {"g":7}, {"h":8}, {"i":9}];
+        let arr = ["a","b","h","j"];
+        $.each(kkk, function(i, n) {
+            // console.log("n的值为：", n);
+            let pp = Object.keys(n);
+            $.each(pp, function(ii, nn) {
+                if ($.inArray(nn, arr) < 0) {
+                    delete n[nn];
+                }
+            });
+            pp = Object.keys(n);
+            // console.log("pp的值为：", pp);
+            $.each(arr, function(ii, nn) {
+                if ($.inArray(nn, pp) < 0) {
+                    n[nn] = null;
+                }
+            });
+        });
+        console.log("kkk的值为：", kkk);
+        return kkk;
+    }
+</script>
+</html>
