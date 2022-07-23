@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS测试</title>
+</head>
+<body>
+    <button onclick="dealFun(arr)">点击测试</button>
+</body>
+<script>
+    var arr = [
+        {
+            ID: "001",
+            PARENT_ID: "001"
+        },
+        {
+            ID: "002",
+            PARENT_ID: "001"
+        },
+        {
+            ID: "003",
+            PARENT_ID: "002"
+        },
+        {
+            ID: "004",
+            PARENT_ID: "002"
+        },
+        {
+            ID: "005",
+            PARENT_ID: "001"
+        },
+    ];
+
+    function dealFun(arr) {
+        // 声明两个数组，分别用来保存ID的值和PARENT_ID的值
+        let IDS = [];
+        let PARENT_IDS = [];
+        // 首先遍历一遍，将根节点确定出来
+        arr.forEach(function (item) {
+            if (item.ID !== item.PARENT_ID) {
+                PARENT_IDS.push(item.PARENT_ID);
+            }
+            IDS.push(item.ID);
+        });
+        // 去重
+        PARENT_IDS = Array.from(new Set(PARENT_IDS));
+        // 拿出IDS相对于PARENT_IDS的差集
+        last_ids = IDS.filter(function (item) {
+            return PARENT_IDS.indexOf(item) == -1;
+        });
+        console.log(last_ids);
+        return last_ids;
+    }
+</script>
+</html>
