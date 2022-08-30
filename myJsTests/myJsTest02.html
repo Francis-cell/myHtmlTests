@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="div1" style="height: 200px; width: 200px; background-color: crimson"></div>
-    <button onclick="showInDivDom(dateDeal('20220702203905'))">floatAdd测试</button>
+    <button onclick="showInDivDom(dateDeal())">floatAdd测试</button>
 </body>
 <script>
     function showInDivDom(value) {
@@ -16,16 +16,22 @@
 
     // 加
     function dateDeal() {
+        debugger;
         // 时间戳
-        let dateMillis = 1656998528226;
+        // let dateMillis = 1656998528226;
+        let dateMillis = 1660648632000;
         let date = new Date(dateMillis);
         let month;
         let dates;
         if ((date.getMonth() + 1) < 10 ) {
             month = "0" + (date.getMonth() + 1);
+        } else {
+            month = date.getMonth() + 1;
         }
         if ((date.getDate()) < 10) {
             dates = "0" + date.getDate();
+        } else {
+            dates = date.getDate();
         }
         return date.getFullYear() + "-" + month + "-" + dates;
     }

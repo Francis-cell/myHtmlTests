@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js对象属性添加删除测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    var obj = {}
+
+    function fun01(obj) {
+        // 添加属性
+        console.log("添加一条属性！")
+        // let a = "a";
+        // obj[a] = "1";
+        obj["a"] = "1";
+        console.log("添加属性后obj的值为：", obj);
+        // // 删除属性
+        // console.log("删除一条属性！")
+        // delete obj.a;
+        // console.log("删除属性后obj的值为：", obj);
+    }
+
+    function dateDeal() {
+        fun01(obj)
+    }
+</script>
+</html>

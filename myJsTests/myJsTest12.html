@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js字典设计</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    function dictDesign() {
+        let dictTemp = {"测试1": 1, "测试2": 2, "测试3": 3, "测试4": 4, "测试5":5};
+        let a = "测试1";
+        console.log(dictTemp[a])
+        console.log("key值：", Object.keys(dictTemp));
+        console.log("value值：", Object.values(dictTemp));
+    }
+
+    function dateDeal() {
+        dictDesign();
+    }
+</script>
+</html>

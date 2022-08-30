@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日期转换</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    /**
+     * 将字符串解析成日期
+     * @param str 输入的日期字符串，如'2014-09-13'
+     * @param fmt 字符串格式，默认'yyyy-MM-dd'，支持如下：y、M、d、H、m、s、S，不支持w和q
+     * @returns 解析后的Date类型日期
+     */
+    function parseDate (str, fmt) {
+        str = str.toString()
+        fmt = fmt || 'yyyy-MM-dd';
+        var obj = {
+            y: 0,
+            M: 1,
+            d: 0,
+            H: 0,
+            h: 0,
+            m: 0,
+            s: 0,
+            S: 0
+        };
+        fmt.replace(/([^yMdHmsS]*?)(([yMdHmsS])\3*)([^yMdHmsS]*?)/g, function(m, $1, $2, $3, $4, idx, old) {
+            str = str.replace(new RegExp($1 + '(\\d{' + $2.length + '})' + $4), function(_m, _$1) {
+                obj[$3] = parseInt(_$1, 10);
+                return '';
+            });
+            return '';
+        });
+        obj.M--; // 月份是从0开始的，所以要减去1
+        let date = new Date(obj.y, obj.M, obj.d, obj.H, obj.m, obj.s);
+        if(obj.S !== 0) date.setMilliseconds(obj.S); // 如果设置了毫秒
+        return date;
+    }
+
+    function dateDeal() {
+        // console.log(parseDate("1659417640000", 'yyyy-MM-dd'));
+        console.log(parseDate(1659417640000, 'yyyy-MM-dd'));
+    }
+</script>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>indexOf</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    function createUuid() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 32; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23];
+        var uuid = s.join("");
+        return uuid;
+    }
+
+    /**
+     * 方法说明：组装请求头(保单管理总线)
+     * 参数说明：serviceType：请求类型
+     *         specialCode：默认值为0
+     *         uuids：请求编号--生成的uuid的值
+     *         insureSystem：投保系统
+     * */
+    function packageRequestHeaders(serviceType, specialCode, uuids, insureSystem) {
+        // serviceCode业务类型字典
+        let serviceCodeDict = {
+            // 投保单修改
+            "prpcmainUpdate": "04003",
+            // 投保单删除
+            "prpcmainDelete": "04004",
+            // 投保单提交核保
+            "prpcmainReview": "04005",
+            // 批单生成
+            "prppmainCreate": "04007",
+            // 投保单生成
+            "prpcmainCreate": "04002",
+            // 批单查询
+            "prppmainQuery": "04009",
+            // 投保单查询
+            "prpcmainQuery": "04010",
+            // 保单查询
+            "policyNoQuery": "04011",
+        };
+        console.log("serviceCodeDict[serviceType]:  ", serviceCodeDict[serviceType]);
+        console.log("serviceCodeDict[serviceType]:  ", serviceCodeDict["prpcmainUpdate"]);
+        let headParams = {
+            // 出单机构
+            issueUnitCode: "1",
+            // 投保产品
+            riskCode: "1",
+            // 特殊编码
+            specialCode: specialCode,
+            // 请求编号
+            requestId: uuids,
+            // 业务类型
+            serviceCode: serviceCodeDict[serviceType],
+        };
+        // 批单生成
+        if (serviceCodeDict[serviceType] === "04002") {
+            // 增加“投保系统”字段
+            // 是否见费
+            headParams.jfeeFlag = '否';
+            // 归属机构
+            headParams.comCode = "1";
+            // 投保系统
+            headParams.insureSystem = insureSystem;
+            // 联/共保标志
+            headParams.coinsFlag = "1";
+            // 联合销售标志
+            headParams.jointSalesFlag = "1";
+            return headParams;
+        }
+        // 批单条件查询、投保单查询、保单查询
+        let typeList1 = ["04009", "04010", "04011"];
+        if (typeList1.indexOf(serviceCodeDict[serviceType]) !== -1) {
+            // 添加投保系统字段
+            headParams.insureSystem = insureSystem;
+            return headParams;
+        }
+        // 投保单生成、投保单修改、投保单删除、投保单提交核保
+        let typeList2 = ["04007", "04003", "04004", "04005"];
+        if (typeList2.indexOf(serviceCodeDict[serviceType]) !== -1) {
+            // 保费金额
+            headParams.premium = "1";
+            // 是否见费
+            headParams.jfeeFlag = '否';
+            // 归属机构
+            headParams.comCode = "1";
+            // 投保系统
+            headParams.insureSystem = insureSystem;
+            // 联/共保标志
+            headParams.coinsFlag = "1";
+            // 联合销售标志
+            headParams.jointSalesFlag = "1";
+            return headParams;
+        }
+    }
+
+    function dateDeal() {
+        let val = packageRequestHeaders("prpcmainUpdate", '0', createUuid(), 'PRPSI');
+        console.log(val);
+    }
+</script>
+</html>

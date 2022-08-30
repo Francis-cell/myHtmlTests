@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>以变量形式调用一个弹窗</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    function dateDeal() {
+        dateDeal01(function a() { alert("123") }, 1, 2);
+    }
+
+    function dateDeal01(a, b, c) {
+        // console.log(b + c);
+    }
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式匹配测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="lastdateDeal()">测试</button>
+<button onclick="lastDeal()">测试1</button>
+</body>
+<script>
+    function lastdateDeal() {
+        console.log("dateDeal返回值:", dateDeal());
+    }
+
+    function lastDeal() {
+        let len = 2;
+        let arr = ["a", "b", "c", "d"];
+        console.log(groupArr(arr, len));
+    }
+
+    // 将数据转换成请求头格式的对象数据
+    function groupArr(arr, len, reHeads) {
+        let lastArr = [];
+        let lastArrs = [];
+        let index = 0;
+        while (index < arr.length) {
+            lastArr.push(arr.slice(index, index += len));
+        }
+        lastArr.forEach(item=>{
+            debugger;
+            let tempObj = {};
+            for (let i = 0; i < item.length; i++) {
+                tempObj[reHeads[i]] = item[i];
+            }
+            lastArrs.push(tempObj);
+        })
+        return lastArrs;
+    }
+
+
+    function dateDeal() {
+        let str = "<br/><table style='width:80%'><colgroup><col width=\'15%\'></col><col width=\'15%\'></col><col width=\'30%\'></col><col width=\'40%\'></col></colgroup><tr style='font-weight: bold'><th>序号</th><th>币别</th><th>交费日期</th><th>金额</th></tr> <tr><td>1</td><td>CNY</td><td>2022-09-01</td><td>0.5</td></tr><tr><td>2</td><td>CNY</td><td>2022-10-01</td><td>0.5</td></tr></table><br/><br/>";
+        // 1、清洗返回的数据
+        // 匹配表头
+        let reHead = new RegExp(/<th>.*?<\/th>/, "g");
+        // 匹配表数据
+        let reData = new RegExp(/<td>.*?<\/td>/, "g");
+        let reHeads = str.match(reHead);
+        for (let i = 0; i < reHeads.length; i++) {
+            reHeads[i] = reHeads[i].replace(/<th>/g, "");
+            reHeads[i] = reHeads[i].replace(/<\/th>/g, "");
+        }
+        let reDatas = str.match(reData);
+        for (let i = 0; i < reDatas.length; i++) {
+            reDatas[i] = reDatas[i].replace(/<td>/g, "");
+            reDatas[i] = reDatas[i].replace(/<\/td>/g, "");
+        }
+        // 2、将reDatas中的数据拆分成n个reHeads长度的数组
+        let lastReDatas = groupArr(reDatas, reHeads.length, reHeads);
+        return {reHeads, lastReDatas}
+    }
+</script>
+</html>

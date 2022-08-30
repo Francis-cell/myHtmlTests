@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将一个方法的返回值赋值给一个变量</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+<button onclick="dateDeal01()">测试1</button>
+</body>
+<script>
+    function dateDeal() {
+        let temp01 = function () {
+            return "123";
+        }
+        let temp02 = temp01();
+        console.log(temp02);
+    }
+
+    function dateDeal01() {
+        let temp01 = function () {
+            return "123";
+        }() || null;
+        console.log(temp01);
+    }
+</script>
+</html>

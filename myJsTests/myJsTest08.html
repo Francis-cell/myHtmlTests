@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>splice方法测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="dateDeal()">测试</button>
+</body>
+<script>
+    function fun01(arrs) {
+        console.log(arrs.splice(2, 2)[0] === "c");
+    }
+
+    function dateDeal() {
+        let arrs = ["1", "2", "c", "s", "f"]
+        fun01(arrs)
+    }
+</script>
+</html>
