@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>textarea测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<textarea id="myTextArea" cols="30" rows="10"></textarea>
+<button onclick="resMatches('myTextArea')">点击</button>
+</body>
+<script>
+    // 判断一个元素的数据类型
+    function resMatches(ids) {
+        // 定义正则表达式的值
+        let res = /'|^\[.*?]|^null$/;
+        let matchVal = $("#"+ids).val();
+        let lastResult = res.test(matchVal);
+        console.log(lastResult);
+        return lastResult;
+    }
+</script>
+</html>

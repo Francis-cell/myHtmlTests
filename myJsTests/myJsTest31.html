@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>fun返回值测试</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="lastFun()">对象生成测试</button>
+</body>
+<script>
+  // 判断一个元素的数据类型
+  function getVal(a, b, c, d) {
+      let obj = {};
+      obj.a = a;
+      obj.b = b;
+      obj.c = c;
+      obj.d = d;
+      return obj;
+  }
+
+  function lastFun() {
+      let val = getVal("1", "2", "3", "4");
+      console.log(val);
+  }
+</script>
+</html>
+

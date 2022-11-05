@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>null 与 0的测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="showInDivDom()">null与0的测试</button>
+</body>
+<script>
+    // 判断一个元素的数据类型
+    function showInDivDom() {
+        console.log("!null :", !null);
+        console.log("!0 :", !0);
+        console.log("0 == null: ", 0 == null);
+        console.log("0 >= null: ", 0 >= null);
+        console.log("0 <= null: ", 0 <= null);
+        console.log("0 > null: ", 0 > null);
+        console.log("0 < null: ", 0 < null);
+        console.log("undefined == null: ", undefined == null);
+        console.log("undefined >= null: ", undefined >= null);
+        console.log("undefined <= null: ", undefined <= null);
+        console.log("undefined < null: ", undefined < null);
+        console.log("undefined > null: ", undefined > null);
+        console.log("undefined == 'null': ", undefined == 'null');
+    }
+</script>
+</html>
