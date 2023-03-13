@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>confirm修改按钮文字</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="test()">点击按钮</button>
+</body>
+<script>
+  // 给一个字符串加<br>换行处理
+  function addBrToString(tmpStr, len) {
+      debugger;
+      // 最终返回值
+      let lastStr;
+      // 首先获取tmpStr的长度
+      let lenStr = tmpStr.length;
+      // 如果lenStr <= len，则直接返回tmpStr
+      if (lenStr <= len) {
+          lastStr = tmpStr;
+      } else {
+          // 获取被处理的字符串被长度len处理的段数
+          // 如果不能整除len，则最终多+1
+          let brSize = Number((lenStr / len)) - Number((lenStr / len).toFixed(0)) > 0 ?
+                  Number((lenStr / len).toFixed(0)) + 1 :
+                  Number((lenStr / len).toFixed(0));
+          // 添加<br>换行符
+          lastStr = tmpStr.substring(0, len);
+          for (let i = 1; i < brSize; i++) {
+              lastStr += '<br>';
+              lastStr += len * (i + 1) < lenStr ? tmpStr.substring(len * i, len * (i + 1)) : tmpStr.substring(len * i, lenStr);
+          }
+    }
+    return lastStr;
+  }
+
+  function test() {
+      let str = "第5行，第6列团体客户统一社会信用代码，必须是如下开头的： ‘11’,‘12’,‘13’,‘19’,‘21’,‘29’,‘31’,‘32’,‘33’,‘34’,‘35’,‘39’,‘41’,‘49’,‘51’,‘52’,‘53’,‘54’,‘55’,‘59’,‘61’,‘62’,‘69’,‘71’,‘72’,‘79’,‘81’,’82‘,‘89’,‘91’,‘92’,‘93’,‘A1’,‘A9’,‘Y1’,‘N1’,‘N2’,‘N3’,‘N9’,‘G1’,‘Q2’，请知晓！ ";
+      console.log(str);
+      let tmpStr = addBrToString(str, 18);
+      console.log(tmpStr);
+  }
+</script>
+</html>
+

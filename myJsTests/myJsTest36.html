@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS正则表达式</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="myRulesFunTest()">JS正则表达式</button>
+</body>
+<script>
+  // 定义接口白名单
+  const interfaceWhiteList = [
+          "/consoleUnit/abc",
+          "/consoleMy/abc",
+          "/consoleMyUnit/cde"
+  ]
+
+
+  function myRulesFun(interfaces) {
+      debugger;
+      // 规则
+      // /consoleUnit/cde  -> false
+      // /consoleHY/abc  -> false
+      /** 白名单 */
+      //1、 /consoleUnit/abc -> true
+      //2、 /consoleMy/abc -> true
+      //3、 /consoleMyUnit/cde -> true
+      let rule = /[cC]+onsole/g;
+      let tempArr = interfaces.match(rule);
+      // tempArr不为null，说明匹配到了
+      if (tempArr != null) {
+          // 检查接口是否在白名单里面
+          if (interfaceWhiteList.indexOf(interfaces) < 0) {
+              return false;
+          }
+      }
+      return true;
+  }
+
+  function myRulesFunTest() {
+      let interfaceArr = [];
+      interfaceArr.push("/con/cde")
+      interfaceArr.push("/consoleUnit/cde")
+      interfaceArr.push("/consoleHY/abc")
+      interfaceArr.push("/consoleUnit/abc")
+      interfaceArr.push("/consoleMy/abc")
+      interfaceArr.push("/consoleMyUnit/cde")
+
+      interfaceArr.forEach(item => {
+          console.log(myRulesFun(item));
+      });
+  }
+</script>
+</html>
+

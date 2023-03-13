@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS正则表达式</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="myRulesFun()">JS正则表达式</button>
+<button onclick="myRulesFun1()">JS正则表达式2</button>
+</body>
+<script>
+  function myRulesFun() {
+      // 1,2,3 --> 1,2
+      // 1,3 --> 1
+      // 2,3 --> 2
+      // 3 --> ''
+      let lastStr = "";
+      let tempStr = "3";
+      let rule = /[12]/g;
+      let tempArr = tempStr.match(rule);
+      // console.log(tempArr);
+      if (tempArr != null) {
+        for (let i = 0; i < tempArr.length; i++) {
+            lastStr += tempArr[i];
+            lastStr += ",";
+        }
+        // 清理最后一个","
+        lastStr = lastStr.substring(0, lastStr.length - 1);
+      }
+      console.log(lastStr)
+      return lastStr;
+  }
+
+  function myRulesFun1() {
+    let tempStr = "1";
+    let tempArr = ["1", "2", "3"];
+
+    console.log(tempStr.match(/3/g) != null);
+    console.log(tempArr.toString().match(/3/g) != null);
+  }
+</script>
+</html>
+
