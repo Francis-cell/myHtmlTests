@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object.defineProperty实现响应式</title>
+</head>
+<body>
+    <button onclick="test()">test</button>
+</body>
+</html>
+
+<script>
+    /**
+     * 使用Object.defineProperty实现一个简单的响应式
+     * @param data 监听的对象
+     */
+    const defineReactiveByProperty = (data) => {
+        for (let [key, value] of Object.entries(data)) {
+            Object.defineProperty(data, key, {
+                // 可枚举
+                enumerable: true,
+                // 可配置
+                configurable: true,
+                get() {
+                    console.log(`读取属性${key}: ${value}`);
+                    return value;
+                },
+                set(newValue) {
+                    console.log(`设置属性${key}: ${newValue}`);
+                    value = newValue;
+                }
+            });
+        }
+        return data;
+    };
+
+    // 测试数据
+    const propertyData = defineReactiveByProperty({
+        name: "小黑",
+        age: 10
+    });
+
+    function test() {
+        // 读取属性
+        propertyData.name;
+        propertyData.age;
+
+        // 设置属性
+        propertyData.name = "小白";
+        propertyData.age = 11;
+    }
+</script>

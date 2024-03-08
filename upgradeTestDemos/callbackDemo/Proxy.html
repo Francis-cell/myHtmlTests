@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy实现响应式</title>
+</head>
+<body>
+    <button onclick="test()">test</button>
+    <button onclick="test1()">test1</button>
+</body>
+</html>
+<script>
+    /**
+     * 使用proxy实现一个简单的响应式
+     * @param data 监听的对象
+     * @param onChange 回调函数
+     */
+    const defineReactiveByProxy = (data, onChange) => {
+        return new Proxy(data, {
+            get(target, key, receiver) {
+                console.log("Reflect get", Reflect.ownKeys(target));
+                console.log("get", key); // 监听
+                return Reflect.get(target, key, receiver);
+            },
+            set(target, key, value, receiver) {
+                const result = Reflect.set(target, key, value, receiver);
+                console.log("set", key, value);
+                // 触发回调函数，通知属性值发生变化
+                onChange && onChange(key, value);
+                return result;
+            },
+            deleteProperty(target, key) {
+                const result = Reflect.deleteProperty(target, key);
+                console.log("delete property", key);
+                return result;
+            }
+        });
+    };
+
+    // 测试数据
+    const proxyData = defineReactiveByProxy(
+        {
+            name: "小黑",
+            age: 10
+        },
+        (key, value) => {
+            console.log(`属性${key}的值已经变成${value}`);
+        }
+    );
+
+    // 数组测试数据
+    const proxyArrayData = ["a", "b", "c"];
+
+    function test() {
+        proxyData.name;
+        proxyData.age;
+
+        proxyData.name = "小白";
+        proxyData.age = 11;
+    }
+
+    function test1() {
+        proxyArrayData.push("e");
+    }
+</script>

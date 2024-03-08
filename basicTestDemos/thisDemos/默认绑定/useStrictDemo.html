@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this 进阶使用</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+</body>
+<script>
+    // 严格模式下的调用
+    "use strict";
+    var a = 10;
+    function foo () {
+        console.log('this1', this)
+        console.log(window.a)
+        // this 的值为 undefined
+        // console.log(this.a)
+    }
+    console.log(window.foo)
+    console.log('this2', this)
+    foo();
+</script>
+</html>
+

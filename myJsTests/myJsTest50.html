@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>js处理数组为map，相同的值合并</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="test()">123</button>
+</body>
+<script>
+    var unitsStr = '[{"UNIT_LEVEL":"3","CODE":"500000","DESCRIPTION":null,"ID":"500000","ISPARENT":"true","NAME":"重庆市","PARENT_ID":"500000"},{"UNIT_LEVEL":"3","CODE":"500100","DESCRIPTION":null,"ID":"500100","ISPARENT":"true","NAME":"重庆市","PARENT_ID":"500000"},{"UNIT_LEVEL":"4","CODE":"500101","DESCRIPTION":null,"ID":"500101","ISPARENT":"false","NAME":"万州区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500102","DESCRIPTION":null,"ID":"500102","ISPARENT":"false","NAME":"涪陵区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500103","DESCRIPTION":null,"ID":"500103","ISPARENT":"false","NAME":"渝中区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500104","DESCRIPTION":null,"ID":"500104","ISPARENT":"false","NAME":"大渡口区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500105","DESCRIPTION":null,"ID":"500105","ISPARENT":"false","NAME":"江北区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500106","DESCRIPTION":null,"ID":"500106","ISPARENT":"false","NAME":"沙坪坝区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500107","DESCRIPTION":null,"ID":"500107","ISPARENT":"false","NAME":"九龙坡区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500108","DESCRIPTION":null,"ID":"500108","ISPARENT":"false","NAME":"南岸区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500109","DESCRIPTION":null,"ID":"500109","ISPARENT":"false","NAME":"北碚区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500110","DESCRIPTION":null,"ID":"500110","ISPARENT":"false","NAME":"綦江区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500111","DESCRIPTION":null,"ID":"500111","ISPARENT":"false","NAME":"大足区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500112","DESCRIPTION":null,"ID":"500112","ISPARENT":"false","NAME":"渝北区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500113","DESCRIPTION":null,"ID":"500113","ISPARENT":"false","NAME":"巴南区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500114","DESCRIPTION":null,"ID":"500114","ISPARENT":"false","NAME":"黔江区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500115","DESCRIPTION":null,"ID":"500115","ISPARENT":"false","NAME":"长寿区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500116","DESCRIPTION":null,"ID":"500116","ISPARENT":"false","NAME":"江津区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500117","DESCRIPTION":null,"ID":"500117","ISPARENT":"false","NAME":"合川区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500118","DESCRIPTION":null,"ID":"500118","ISPARENT":"false","NAME":"永川区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500119","DESCRIPTION":null,"ID":"500119","ISPARENT":"false","NAME":"南川区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500120","DESCRIPTION":null,"ID":"500120","ISPARENT":"false","NAME":"璧山区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500151","DESCRIPTION":null,"ID":"500151","ISPARENT":"false","NAME":"铜梁区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500152","DESCRIPTION":null,"ID":"500152","ISPARENT":"false","NAME":"潼南区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500153","DESCRIPTION":null,"ID":"500153","ISPARENT":"false","NAME":"荣昌区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500154","DESCRIPTION":null,"ID":"500154","ISPARENT":"false","NAME":"开州区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500155","DESCRIPTION":null,"ID":"500155","ISPARENT":"false","NAME":"梁平区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500156","DESCRIPTION":null,"ID":"500156","ISPARENT":"false","NAME":"武隆区","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500229","DESCRIPTION":null,"ID":"500229","ISPARENT":"false","NAME":"城口县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500230","DESCRIPTION":null,"ID":"500230","ISPARENT":"false","NAME":"丰都县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500231","DESCRIPTION":null,"ID":"500231","ISPARENT":"false","NAME":"垫江县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500233","DESCRIPTION":null,"ID":"500233","ISPARENT":"false","NAME":"忠县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500235","DESCRIPTION":null,"ID":"500235","ISPARENT":"false","NAME":"云阳县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500236","DESCRIPTION":null,"ID":"500236","ISPARENT":"false","NAME":"奉节县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500237","DESCRIPTION":null,"ID":"500237","ISPARENT":"false","NAME":"巫山县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500238","DESCRIPTION":null,"ID":"500238","ISPARENT":"false","NAME":"巫溪县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500240","DESCRIPTION":null,"ID":"500240","ISPARENT":"false","NAME":"石柱土家族自治县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500241","DESCRIPTION":null,"ID":"500241","ISPARENT":"false","NAME":"秀山土家族苗族自治县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500242","DESCRIPTION":null,"ID":"500242","ISPARENT":"false","NAME":"酉阳土家族苗族自治县","PARENT_ID":"500200"},{"UNIT_LEVEL":"4","CODE":"500243","DESCRIPTION":null,"ID":"500243","ISPARENT":"false","NAME":"彭水苗族土家族自治县","PARENT_ID":"500200"}]';
+
+    function test() {
+        let unitTree = JSON.parse(unitsStr);
+        let tree = buildTree(unitTree);
+        console.error(tree);
+    }
+
+    function buildTree(data) {
+      const tree = [];
+      const map = {};
+
+      // create basic tree structure
+      for (const item of data) {
+        const { ID, PARENT_ID } = item;
+
+        if (ID === PARENT_ID) {
+          tree.push(item); // it's a root node
+        } else {
+          // add to parent's children
+          const parent = map[PARENT_ID];
+          if (!parent) {
+            console.error(`Cannot find parent of item with id ${ID}`);
+          } else {
+            if (!parent.children) {
+              parent.children = [];
+            }
+            parent.children.push(item);
+          }
+        }
+
+        map[ID] = item;
+      }
+
+      return tree;
+    }
+</script>
+</html>
+

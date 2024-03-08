@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this 进阶使用</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+</body>
+<script>
+    // 显示绑定
+    function foo () {
+        console.log(this.a)
+        return function () {
+            console.log(this.a)
+        }
+    }
+    var obj = { a: 1 }
+    var a = 2
+    // 2
+    // foo();
+
+    // 2、2
+    // foo()();
+
+    // 1
+    // foo.call(obj);
+
+    // 2、1
+    foo().call(obj)
+</script>
+</html>
+

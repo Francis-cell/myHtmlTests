@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>暴力测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        .button-3d {
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            background: #4CAF50; /* Green background */
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            display: inline-block;
+        }
+        .button-3d:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #3e8e41; /* Darker green background */
+            z-index: -1;
+            transform: scaleY(0);
+            transform-origin: 50% 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        .button-3d:hover:before {
+            transform: scaleY(1);
+        }
+        .button-3d:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+<button class="button-3d" onclick="test01()">test01</button>
+<button class="button-3d" onclick="addDemo()">加法</button>
+<button class="button-3d" onclick="subDemo()">减法</button>
+<button class="button-3d" onclick="multiDemo()">乘法</button>
+<button class="button-3d" onclick="divideDemo()">除法</button>
+</body>
+<script>
+    /**
+     * 随机浮点数生成器 (1000000000)
+     */
+    function generateRandomFloatValue(maxValue) {
+        return parseFloat((Math.random() * maxValue + 1).toFixed(2));
+    }
+
+    /**
+     * 主体监测程序，如果发现计算过程中出现精度丢失就返回 false
+     */
+    function mainMethod(val) {
+        // *100
+        let step1 = Math.round(val * 100);
+        // let step1 = val * 100;
+        if (step1 > Math.floor(step1)) {
+            return false;
+        }
+        // /100
+        let step2 = step1 / 100;
+        if (hasMoreThanTwoDecimals(step2)) {
+        // if (hasMoreThanTwoDecimals(Number(step2.toFixed(2)))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 两个浮点数相加精度查看
+     * @param num1
+     * @param num2
+     */
+    function twoNumAdd(num1, num2) {
+        let ans = num1 + num2;
+        if (hasMoreThanTwoDecimals(ans)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 两个浮点数相减精度查看
+     * @param num1
+     * @param num2
+     */
+    function twoNumSubTract(num1, num2) {
+        let ans = num1 - num2;
+        if (hasMoreThanTwoDecimals(ans)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 浮点数 * 100 丢失精度判断
+     * @param num
+     */
+    function numMultiple(num) {
+        let ans = num * 100;
+        if (hasMoreThanTwoDecimals(ans)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 浮点数 / 100 丢失精度判断
+     * @param num
+     */
+    function numDivide(num) {
+        let ans = num / 100;
+        if (hasMoreThanTwoDecimals(ans)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 匹配两位小数
+     * @param number
+     * @returns {boolean}
+     */
+    function hasTwoDecimals(number) {
+        var str = number.toString();
+        var regex = /^\d+\.\d{2}$/;
+        return regex.test(str);
+    }
+
+    /**
+     * 匹配超过两位小数位的数据
+     * @param number
+     * @returns {boolean}
+     */
+    function hasMoreThanTwoDecimals(number) {
+        var str = number.toString();
+        var regex = /^\d+\.\d{3,}$/;
+        return regex.test(str);
+    }
+
+    function test01() {
+        let testTimes = 1000000;
+        let maxValue = 1000000000;
+
+        // console.error("测试开始！");
+        // for (let i = 0; i < testTimes; i++) {
+        //     // 随机数据
+        //     let val = generateRandomFloatValue(maxValue);
+        //
+        //     if (!mainMethod(val)) {
+        //         console.error("出错了！")
+        //         console.error("出错的数据为：", val);
+        //         break;
+        //     }
+        //  }
+        // console.error("测试结束!");
+
+
+
+        console.error("测试开始！");
+        for (let i = 0; i < testTimes; i++) {
+            // 随机数据
+            let num1 = generateRandomFloatValue(maxValue);
+            let num2 = generateRandomFloatValue(maxValue);
+
+            // if (!twoNumAdd(num1, num2)) {
+            //     console.error("出错了！")
+            //     console.error("加法出错的数据为：" + num1 + "," + num2);
+            //     break;
+            // }
+
+            if (!twoNumSubTract(num1, num2)) {
+                console.error("出错了！")
+                console.error("减法出错的数据为：" + num1 + "," + num2);
+                break;
+            }
+        }
+        console.error("测试结束!");
+
+
+        // let testVal = 3414885.84;
+        // debugger;
+        // mainMethod(testVal);
+    }
+
+    function addDemo() {
+        let testTimes = 1000000;
+        let maxValue = 1000000000;
+
+        console.error("测试开始！");
+        for (let i = 0; i < testTimes; i++) {
+            // 随机数据
+            let num1 = generateRandomFloatValue(maxValue);
+            let num2 = generateRandomFloatValue(maxValue);
+
+            if (!twoNumAdd(num1, num2)) {
+                console.error("出错了！")
+                console.error("加法出错的数据为：" + num1 + "," + num2);
+                break;
+            }
+
+            // if (!twoNumSubTract(num1, num2)) {
+            //     console.error("出错了！")
+            //     console.error("减法出错的数据为：" + num1 + "," + num2);
+            //     break;
+            // }
+        }
+        console.error("测试结束!");
+    }
+
+    function subDemo() {
+        let testTimes = 1000000;
+        let maxValue = 1000000000;
+
+        console.error("测试开始！");
+        for (let i = 0; i < testTimes; i++) {
+            // 随机数据
+            let num1 = generateRandomFloatValue(maxValue);
+            let num2 = generateRandomFloatValue(maxValue);
+
+            if (!twoNumSubTract(num1, num2)) {
+                console.error("出错了！")
+                console.error("减法出错的数据为：" + num1 + "," + num2);
+                break;
+            }
+        }
+        console.error("测试结束!");
+    }
+
+    function multiDemo() {
+        let testTimes = 1000000;
+        let maxValue = 1000000000;
+
+        console.error("测试开始！");
+        for (let i = 0; i < testTimes; i++) {
+            // 随机数据
+            let num1 = generateRandomFloatValue(maxValue);
+
+            if (!numMultiple(num1)) {
+                console.error("出错了！")
+                console.error("乘法出错的数据为：" + num1);
+                break;
+            }
+        }
+        console.error("测试结束!");
+    }
+
+    function divideDemo() {
+        let testTimes = 1000000;
+        let maxValue = 1000000000;
+
+        console.error("测试开始！");
+        for (let i = 0; i < testTimes; i++) {
+            // 随机数据
+            let num1 = generateRandomFloatValue(maxValue);
+
+            if (!numDivide(num1)) {
+                console.error("出错了！")
+                console.error("除法出错的数据为：" + num1);
+                break;
+            }
+        }
+        console.error("测试结束!");
+    }
+</script>
+</html>
+

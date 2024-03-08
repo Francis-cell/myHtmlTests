@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>async 进阶使用</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="test01()">test01</button>
+</body>
+<script>
+    function test01() {
+        const b = () => {
+            console.log("开始执行 b 方法!");
+            return Promise.reject(new Error("除以零错误"));
+        }
+
+        function c() {
+            console.log("开始执行 c 方法!");
+        }
+
+        // const a = () => {
+        //     b().then(() => c());
+        // }
+
+        const a = async () => {
+            try {
+                await b();
+                c();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        a();
+    }
+</script>
+</html>
+

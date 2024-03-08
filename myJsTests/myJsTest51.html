@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js 中 var、let、const 变量之间的区别</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="varTest()">var</button>
+<button onclick="constTest()">const</button>
+<button onclick="letTest()">let</button>
+<button onclick="test01()">test01</button>
+</body>
+<script>
+    function varTest() {
+        // var a = 1213;
+        // console.log(a);
+        // var a = "234"
+        // console.log(a);
+        //
+        // console.log(window.a);
+
+
+        for (var i = 0; i < 5; i++) {
+             console.log(i); // 5、5、5、5、5
+        }
+
+
+        // for (var i = 0; i < 5; i++) {
+        //     setTimeout( () => {
+        //         console.log(i); // 5、5、5、5、5
+        //     }, 0 )
+        // }
+
+
+        // for (var i = 0; i < 5; i++) {
+        //     (function(j) {
+        //         setTimeout(() => {
+        //             console.log(j);
+        //         }, 0);
+        //     })(i);
+        // }
+    }
+
+    function letTest() {
+        // let a = "123";
+        // // console.log(a);
+        // // a = "234"
+        // // console.log(a);
+        //
+        // console.log(window.a);
+
+
+        for (let i = 0; i < 5; i++) {
+            console.log(i);
+        }
+
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout( () => {
+                console.log(i); // 0、1、2、3、4
+            }, 0 )
+        }
+    }
+
+    function constTest() {
+        const a = "123";
+        // console.log(a);
+        // a = "234"
+        // console.log(a);
+
+        console.log(window.a);
+    }
+
+    function test01() {
+        let a = 7;
+        if (a === 7) {
+            // 没问题，并且创建了一个块作用域变量 MY_FAV
+            // (works equally well with let to declare a block scoped non const variable)
+            var MY_FAV = 20;
+            // MY_FAV 现在为 20
+            console.log("my favorite number is " + MY_FAV);
+            // 这被提升到全局上下文并引发错误
+            var MY_FAV = 30;
+        }
+    }
+</script>
+</html>
+

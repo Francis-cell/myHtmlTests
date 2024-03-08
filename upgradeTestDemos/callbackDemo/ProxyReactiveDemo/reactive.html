@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy 响应式实现案例</title>
+    <script src="../../../JQuery/jquery.min.js"></script>
+</head>
+<body>
+    <label for="name">姓名：</label><input id="name" type="text"/>
+    <label for="age">年龄：</label><input id="age" type="text"/>
+
+
+<!--    <script type="module" src="reactive.js"></script>-->
+
+    <script type="module">
+
+        import {reactive, addWatcher} from "./reactive.js";
+        // reactive = require("./reactive");
+        // addWatcher = require("./reactive");
+
+        let dataObj = {
+            name: "小白",
+            age: 111
+        }
+
+        // 监听数据
+        let proxyObj = reactive(dataObj);
+
+        function main() {
+            // 绑定 name
+            function renderName() {
+                $('#name').val(proxyObj.name);
+            }
+
+            // 绑定 age
+            function renderAge() {
+                $('#age').val(proxyObj.age);
+            }
+
+            // 第一次自动获取更新视图
+            console.log("视图渲染...");
+            addWatcher(renderName);
+            addWatcher(renderAge);
+            console.log("视图渲染完成...");
+
+            // 添加事件监听
+            $("#name").change(() =>{
+                let tmpValue = $('#name').val();
+                nameChange(tmpValue);
+            })
+            $("#age").change(() => {
+                let tmpValue = $('#age').val();
+                ageChange(tmpValue);
+            });
+        }
+
+        main();
+
+        debugger;
+        console.error("proxyObj的值为：", proxyObj);
+
+        // 姓名变化
+        function nameChange(value) {
+            // 调用 setter 方法，更新数据
+            console.log("姓名发生变化");
+            $('#name').val(value)
+            // proxyObj.set(dataObj, "name", value);
+        }
+
+        // 年龄变化
+        function ageChange(value) {
+            // 调用 setter 方法，更新数据
+            console.log("年龄发生变化");
+            $('#age').val(value)
+            // proxyObj.set(dataObj, "age", value);
+        }
+
+
+    </script>
+</body>
+</html>

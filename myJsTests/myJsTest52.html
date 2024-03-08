@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js 中 var、let、const 变量之间的区别</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button onclick="test01()">test01</button>
+</body>
+<script>
+    function test01() {
+        let tmpArray = [1, 2, 3, 4, 5, 6];
+        console.log(tmpArray);
+        // 给第一个推元素
+        tmpArray.unshift(2);
+        console.log(tmpArray);
+        // 删除第一个元素
+        tmpArray.shift();
+        console.log(tmpArray);
+        // 尾部追加元素
+        tmpArray.push(7);
+        console.log(tmpArray);
+    }
+</script>
+</html>
+
