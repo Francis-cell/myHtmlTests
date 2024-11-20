@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax 请求拦截器测试</title>
+</head>
+<body>
+<!-- Ajax 请求拦截器扩展 -->
+<script src="./js/AjaxAppend.js"></script>
+</body>
+<script type="text/javascript">
+    function ajaxRequest() {
+        $.ajax({
+            url: "/api/some-endpoint",
+            type: "GET",
+            success: function(data) {
+                console.log("自定义成功处理逻辑");
+            },
+            error: function(error) {
+                console.log("自定义错误处理逻辑");
+            }
+        });
+    }
+</script>
+</html>

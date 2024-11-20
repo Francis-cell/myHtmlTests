@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元编程 Proxy 测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    const handler = {
+        get: function(target, prop, receiver) {
+            if (prop in target) {
+                return target[prop];
+            } else {
+                console.log(`Property ${prop} does not exist.`);
+                return undefined;
+            }
+        },
+        set: function(target, prop, value) {
+            if (typeof value === 'number') {
+                target[prop] = value;
+                return true;
+            } else {
+                console.log(`Only numeric values are allowed for property ${prop}.`);
+                return false;
+            }
+        }
+    };
+
+    function test() {
+        const targetObject = { a: 1 };
+        const proxy = new Proxy(targetObject, handler);
+
+        console.log(proxy.a); // 1
+        console.log(proxy.b); // "Property b does not exist."
+
+        proxy.a = 10;
+        console.log(proxy.a); // 10
+
+        proxy.b = 'test'; // "Only numeric values are allowed for property b."
+    }
+</script>
+</html>
+

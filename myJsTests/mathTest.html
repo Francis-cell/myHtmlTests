@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    function test() {
+        let val = 10;
+        let ans = floatMul(floatDiv(floatMul(val, 0.5),100),0.95);
+        console.error(ans);
+    }
+
+    // 数字过滤
+    function filterNumber(input, xx = 2) {
+        xx = xx || xx === 0 ? xx : 2;
+        return Number(parseFloat(input).toFixed(xx));
+    }
+    // 加
+    function floatAdd(arg1, arg2) {
+        arg1 = arg1.toString(), arg2 = arg2.toString();
+        var arg1Arr = arg1.split("."),
+            arg2Arr = arg2.split("."),
+            d1 = arg1Arr.length == 2 ? arg1Arr[1] : "",
+            d2 = arg2Arr.length == 2 ? arg2Arr[1] : "";
+        var maxLen = Math.max(d1.length, d2.length);
+        var m = Math.pow(10, maxLen);
+        var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen));
+        var d = arguments[2];
+        return typeof d === "number" ? Number((result).toFixed(d)) : result;
+    }
+    // 减
+    function floatSub(arg1, arg2) {
+        return this.floatAdd(arg1, -Number(arg2), arguments[2]);
+    }
+    // 乘
+    function floatMul(arg1, arg2) {
+        var r1 = arg1.toString(),
+            r2 = arg2.toString(),
+            m, resultVal, d = arguments[2];
+        m = (r1.split(".")[1] ? r1.split(".")[1].length : 0) + (r2.split(".")[1] ? r2.split(".")[1].length : 0);
+        resultVal = Number(r1.replace(".", "")) * Number(r2.replace(".", "")) / Math.pow(10, m);
+        return typeof d !== "number" ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)));
+    }
+    // 除
+    function floatDiv(arg1, arg2) {
+        if(arg2 === 0 || arg2=='0.00') return 0;
+        var r1 = arg1.toString(),
+            r2 = arg2.toString(),
+            m, resultVal, d = arguments[2];
+        m = (r2.split(".")[1] ? r2.split(".")[1].length : 0) - (r1.split(".")[1] ? r1.split(".")[1].length : 0);
+        resultVal = Number(r1.replace(".", "")) / Number(r2.replace(".", "")) * Math.pow(10, m);
+        return typeof d !== "number" ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)));
+    }
+</script>
+</html>
+

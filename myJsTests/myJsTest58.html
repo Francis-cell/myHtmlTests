@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>set 测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test01()">test01</button>
+<button class="button-3d" onclick="test02()">test02</button>
+</body>
+<script>
+    function test01() {
+        let a = new Set();
+        a.add("1");
+        a.add("2");
+        a.add("1");
+        a.forEach(item => {
+           console.error(item);
+        });
+    }
+
+    function test02() {
+        let a = new Set();
+        a.add("1");
+        a.add("2");
+        a.add("1");
+        let b = [...a].join(", ");
+        let c = Array.from(a).join(", ");
+        console.error(b);
+        console.error(c);
+    }
+</script>
+</html>
+

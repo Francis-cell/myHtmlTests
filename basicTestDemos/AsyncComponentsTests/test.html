@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>同步调用组件示例</title>
+</head>
+<body>
+<button onclick="testComponent()">显示组件</button>
+<script src="./js/AsyncComponents.js"></script>
+<script type="text/javascript">
+    async function testComponent() {
+      console.log("准备加载并显示组件...");
+
+      // 使用 await 同步等待组件关闭
+      await showComponent('./modal.html', {a: 1, b: 2, c: 3}).then(res => {
+          console.error("外部成功返回:", res);
+      }).catch(err => {
+          console.error("外部失败返回:", err);
+      });  // 传入外部 HTML 文件的相对路径
+
+      console.log("组件已关闭，继续执行后续逻辑...");
+
+      // 继续执行其他操作
+      console.log("后续逻辑执行完毕！");
+    }
+</script>
+</body>
+</html>

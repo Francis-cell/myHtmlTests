@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set 测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    function test() {
+        // // 示例使用
+        // let a = new Set();
+        // a.add("W1");
+        // a.add("W2");
+        // a.add("W3");
+        // a.delete("W1");
+        // console.error("a:", a);
+        // console.error("[...a][0]", [...a][0]);
+        // console.error("a.size:", a.size);
+
+        let a = [];
+        a.push({a: 1, b: 2, c: {d: 1, e: 2}});
+        a.push({a: 2, b: 3, c: {d: 2, e: 3}});
+        a.push({a: 3, b: 4, c: {d: 3, e: 4}});
+        a.push({a: 4, b: 5, c: {d: 4, e: 5}});
+
+        let b = {a: 4, b: 5, c: {d: 4, e: 3}};
+
+        function deepEqual(obj1, obj2) {
+            if (obj1 === obj2) {
+                return true;
+            }
+            if (typeof obj1 !== 'object' || obj1 === null || typeof obj2 !== 'object' || obj2 === null) {
+                return false;
+            }
+            let keysA = Object.keys(obj1);
+            let keysB = Object.keys(obj2);
+            if (keysA.length !== keysB.length) {
+                return false;
+            }
+            for (let key of keysA) {
+                if (!keysB.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        let containsObject = a.some(item => deepEqual(item, b));
+
+        if (!containsObject) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+</script>
+</html>
+

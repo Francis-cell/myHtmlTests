@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set 测试</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    function findDifferences(arr1, arr2) {
+        // 将对象转换为字符串表示形式，便于比较
+        const objToString = obj =>
+            JSON.stringify(Object.keys(obj).sort().reduce((result, key) => {
+                result[key] = obj[key];
+                return result;
+            }, {}));
+
+        // 转换数组中的所有对象
+        const stringifiedArr1 = arr1.map(objToString);
+        const stringifiedArr2 = arr2.map(objToString);
+
+        // 找出arr2中不同的元素
+        const differences = arr2.filter(obj => {
+            const objString = objToString(obj);
+            return !stringifiedArr1.includes(objString);
+        });
+
+        return differences;
+    }
+
+    function test() {
+        // 示例使用
+        const array1 = [
+            {key: "W1", value: "AAA"},
+            {key: "W2", value: "AAA"},
+            {key: "W2", value: "CCC"},
+        ];
+
+        const array2 = [
+            {key: "W2", value: "AAA"},
+            {key: "W1", value: "AAA"},
+            {key: "W1", value: "BBB"}
+        ];
+
+        console.log(findDifferences(array1, array2)); // 应该输出 true
+    }
+</script>
+</html>
+

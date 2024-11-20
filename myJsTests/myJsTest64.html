@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy 拦截器</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    const handler = {
+        get(target, prop, receiver) {
+            const originalMethod = target[prop];
+            if (typeof originalMethod === 'function') {
+                return function (...args) {
+                    console.log(`Calling method: ${prop} with arguments: ${args.join(', ')}`);
+                    const result = originalMethod.apply(this, args);
+                    console.log(`Method ${prop} returned: ${result}`);
+                    return result;
+                };
+            }
+            return originalMethod;
+        }
+    };
+
+    function test() {
+        const obj = {
+            add(a, b) {
+                return a + b;
+            },
+            subtract(a, b) {
+                return a - b;
+            }
+        };
+
+        const proxyObj = new Proxy(obj, handler);
+
+        console.log(proxyObj.add(3, 4));  // Logs: Calling method: add with arguments: 3, 4
+                                          //       Method add returned: 7
+                                          //       7
+        console.log(proxyObj.subtract(10, 5));  // Logs: Calling method: subtract with arguments: 10, 5
+        //       Method subtract returned: 5
+        //       5
+    }
+</script>
+</html>
+

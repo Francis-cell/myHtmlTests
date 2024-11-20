@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Components test</title>
+</head>
+<body>
+<button onclick="test('1', '2', '5')">test</button>
+<button onclick="test('1', '2', undefined, '5')">test2</button>
+<button onclick="test('1', '2')">test1</button>
+</body>
+<script>
+    function test(param1, param2, param3="3", param4="4") {
+        console.log(param1);
+        console.log(param2);
+        console.log(param3);
+        console.log(param4);
+    }
+</script>
+</html>
+

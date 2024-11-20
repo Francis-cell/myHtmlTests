@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Button Example</title>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Shadow */
+            transition: all 0.3s ease 0s; /* Smooth transition */
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            box-shadow: 0 12px 24px 0 rgba(0,0,0,0.3), 0 10px 30px 0 rgba(0,0,0,0.22); /* Bigger shadow on hover */
+            transform: translateY(-3px); /* Lift the button on hover */
+        }
+
+        .button:active {
+            background-color: #3e8e41; /* Even darker green on click */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Smaller shadow on click */
+            transform: translateY(-1px); /* Slightly lower the button on click */
+        }
+    </style>
+</head>
+<body>
+
+<button class="button" onclick="test()">test</button>
+
+</body>
+<script type="text/javascript">
+    /**
+     * 对象元素打印
+     * @param obj
+     * @param indent
+     */
+    function printObjectElements(obj, indent = '') {
+        // 使用for...in循环遍历对象的每个属性
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                const value = obj[key];
+                // 检查属性值的数据类型
+                if (typeof value === 'object' && value !== null) {
+                    // 如果是数组，打印数组信息
+                    if (Array.isArray(value)) {
+                        console.log(indent + `${key}: [`);
+                        value.forEach((item, index) => {
+                            if (typeof item === 'object' && item !== null) {
+                                console.log(indent + `  ${index}: {`);
+                                printObjectElements(item, indent + '    '); // 递归打印对象
+                                console.log(indent + `  },`);
+                            } else {
+                                console.log(indent + `  ${index}:${item},`);
+                            }
+                        });
+                        console.log(indent + `],`);
+                    } else {
+                        // 如果是普通对象，打印对象信息
+                        console.log(indent + `${key}: {`);
+                        printObjectElements(value, indent + '  '); // 递归打印对象
+                        console.log(indent + `},`);
+                    }
+                } else {
+                    // 如果是基本类型，直接打印
+                    console.log(indent + `${key}:${value},`);
+                }
+            }
+        }
+    }
+
+    // 示例使用：
+    const myObject = {
+        name: 'Alice',
+        age: 25,
+        details: {
+            hobbies: ['reading', 'hiking'],
+            education: {
+                degree: 'BSc',
+                university: 'University X'
+            }
+        },
+        tags: ['developer', 'javascript']
+    };
+
+    function test() {
+        printObjectElements(myObject);
+    }
+
+</script>
+</html>
+
+

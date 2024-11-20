@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Own async await test</title>
+</head>
+<body>
+<button onclick="test()">test</button>
+</body>
+<script src="./js/MyPromise.js">
+</script>
+<script>
+    function test() {
+        // 使用同步代码处理异步操作
+        myAsync(function* () {
+            const result1 = yield delay(1000);  // 使用 myPromise 模拟异步延迟
+            console.log(result1);               // 输出: "延迟了 1000 毫秒"
+
+            const result2 = yield delay(2000);  // 再次使用 myPromise 模拟异步延迟
+            console.log(result2);               // 输出: "延迟了 2000 毫秒"
+
+            return 'test 函数操作完成';  // 最终返回结果
+        }).then(finalResult => {
+            console.log("123");
+            console.log(finalResult);  // 输出: "test 函数操作完成"
+        }).catch(err => {
+            console.error(err);
+        });
+
+        // // 使用同步代码处理异步操作
+        // myAsync(function* () {
+        //     fun01();
+        //     fun02();
+        //     console.error("执行完成！");
+        // }).then(() => {
+        //     console.error("操作完成");  // 输出: "操作完成"
+        // }).catch(err => {
+        //     console.error(err);
+        // });
+    }
+
+    function fun01() {
+        let ans = 0;
+        for (let i = 0; i < 1000; ) {
+            ans += i;
+            i+=5;
+        }
+        console.error("fun01 延时开始!");
+        setTimeout(() => {
+        }, 5000);
+        console.error("fun01 延时结束!");
+        console.error("ans 的值：", ans);
+    }
+
+    function fun02() {
+        console.error("fun02 开始!");
+    }
+</script>
+</html>
+

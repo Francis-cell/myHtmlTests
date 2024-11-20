@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Button Example</title>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Shadow */
+            transition: all 0.3s ease 0s; /* Smooth transition */
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            box-shadow: 0 12px 24px 0 rgba(0,0,0,0.3), 0 10px 30px 0 rgba(0,0,0,0.22); /* Bigger shadow on hover */
+            transform: translateY(-3px); /* Lift the button on hover */
+        }
+
+        .button:active {
+            background-color: #3e8e41; /* Even darker green on click */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Smaller shadow on click */
+            transform: translateY(-1px); /* Slightly lower the button on click */
+        }
+    </style>
+</head>
+<body>
+
+<button class="button" onclick="test()">test</button>
+
+</body>
+<script src="../utils/TestUtils/testUtils.js"></script>
+<script type="text/javascript">
+    /**
+     *  深度比较两个对象是否相同
+     * @param {Object} oldData
+     * @param {Object} newData
+     */
+    function compareBack(oldData, newData) {
+        // 类型为基本类型时,如果相同,则返回true
+        if (oldData == newData) return true;
+        if (isObject(oldData) && isObject(newData) && Object.keys(oldData).length === Object.keys(newData).length) {
+            // 类型为对象并且元素个数相同
+            // 遍历所有对象中所有属性,判断元素是否相同
+            for (const key in oldData) {
+                if (oldData.hasOwnProperty(key)) {
+                    if (!compareBack(oldData[key], newData[key])) {
+                        // 对象中具有不相同属性 返回false
+                        return false;
+                    }
+                }
+            }
+        } else if (isArray(oldData) && isArray(oldData) && oldData.length === newData.length) {
+            // 类型为数组并且数组长度相同
+            for (let i = 0, length = oldData.length; i < length; i++) {
+                if (!compareBack(oldData[i], newData[i])){
+                    // 如果数组元素中具有不相同元素,返回false
+                    return false;
+                }
+            }
+        } else {
+            // 其它类型,均返回false
+            return false;
+        }
+        // 走到这里,说明数组或者对象中所有元素都相同,返回true
+        return true;
+    }
+
+    /**
+     * 深度比较两个对象是否相同
+     * @param {Object} oldData
+     * @param {Object} newData
+     */
+    function compare(oldData, newData) {
+        // 类型为基本类型时,如果相同,则返回true
+        if (oldData === newData) return true;
+
+        if (isObject(oldData) && isObject(newData) && Object.keys(oldData).length === Object.keys(newData).length) {
+            // 类型为对象并且元素个数相同
+            // 遍历所有对象中所有属性,判断元素是否相同
+            for (const key in oldData) {
+                if (oldData.hasOwnProperty(key)) {
+                    if (!compare(oldData[key], newData[key])) {
+                        // 对象中具有不相同属性 返回false
+                        return false;
+                    }
+                }
+            }
+        } else if (isArray(oldData) && isArray(newData) && oldData.length === newData.length) {
+            // 对象类型
+            if (oldData.some(isObject)) {
+                const sortedOldData = [...oldData].sort(compareObjects);
+                const sortedNewData = [...newData].sort(compareObjects);
+                for (let i = 0; i < sortedOldData.length; i++) {
+                    if (!compare(sortedOldData[i], sortedNewData[i])) {
+                        return false;
+                    }
+                }
+            }
+            // 数组类型
+            else if (oldData.some(isArray)) {
+                for (let i = 0; i < oldData.length; i++) {
+                    if (!compare(oldData[i], newData[i])) {
+                        return false;
+                    }
+                }
+            }
+            // 普通元素类型
+            else {
+                const sortedOldData = [...oldData].sort();
+                const sortedNewData = [...newData].sort();
+                for (let i = 0; i < sortedOldData.length; i++) {
+                    if (sortedOldData[i] !== sortedNewData[i]) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            // 其它类型,均返回false
+            return false;
+        }
+        // 走到这里,说明数组或者对象中所有元素都相同,返回true
+        return true;
+
+
+        // 比较两个对象内容以便用于排序
+        function compareObjects(a, b) {
+            const aEntries = Object.entries(a).sort();
+            const bEntries = Object.entries(b).sort();
+            for (let i = 0; i < aEntries.length; i++) {
+                const [aKey, aValue] = aEntries[i];
+                const [bKey, bValue] = bEntries[i];
+                if (aKey !== bKey) return aKey < bKey ? -1 : 1;
+                if (aValue !== bValue) return aValue < bValue ? -1 : 1;
+            }
+            return 0;
+        }
+    }
+
+
+
+    // 是否为对象
+    function isObject(o) {
+        return Object.prototype.toString.call(o).slice(8, -1) === "Object";
+    }
+
+    // 是否为数组
+    function isArray(o) {
+        return Object.prototype.toString.call(o).slice(8, -1) === "Array";
+    }
+
+    function test() {
+        let firstDataList = [
+            {policyNo: "P2024110501", endorType: "W1"},
+            {policyNo: "P2024110501", endorType: "W67"},
+            {policyNo: "P2024110502", endorType: "W67"},
+            {policyNo: "P2024110502", endorType: "W1"}
+        ];
+
+        let secondDataList = [
+            {policyNo: "P2024110501", endorType: "W67"},
+            {policyNo: "P2024110502", endorType: "W1"},
+            {policyNo: "P2024110502", endorType: "W67"},
+            {policyNo: "P2024110501", endorType: "W1"}
+        ];
+
+        let firstTestObject = {
+            policyNo1: "P2024110501", endorType1: "W67",
+            policyNo2: "P2024110502", endorType2: "W1",
+            policyNo3: "P2024110502", endorType3: "W67",
+            policyNo4: "P2024110501", endorType4: "W1"
+        }
+
+        let secondTestObject = {
+            policyNo1: "P2024110501", endorType1: "W67",
+            policyNo2: "P2024110502", endorType2: "W1",
+            policyNo3: "P2024110502", endorType3: "W67",
+            policyNo4: "P2024110501", endorType4: "W1"
+        };
+
+        let firstDataList1 = [
+            1, 3, 5, 7, 9
+        ];
+
+        let secondDataList1 = [
+            1, 3, 5, 9, 7
+        ];
+
+        let firstDataList2 = [
+            [1, 3, 5, 7, 9],
+            [2, 4, 6, 8, 10],
+            [11, 12, 13, 14, 15]
+        ];
+
+        let secondDataList2 = [
+            [1, 3, 5, 9, 7],
+            [2, 6, 4, 10, 8],
+            [11, 12, 13, 14, 15]
+        ];
+
+        let ans1 = compare(firstDataList, secondDataList);
+        let ans2 = compare(firstTestObject, secondTestObject);
+        let ans3 = compare(firstDataList1, secondDataList1);
+        let ans4 = compare(firstDataList2, secondDataList2);
+        console.error("测试结果:", ans1);
+        console.error("测试结果:", ans2);
+        console.error("测试结果:", ans3);
+        console.error("测试结果:", ans4);
+    }
+</script>
+</html>
+
+

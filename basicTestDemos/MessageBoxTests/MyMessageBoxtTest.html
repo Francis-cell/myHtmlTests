@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MessageBox 示例</title>
+    <style>
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<button id="showMessageBox" onclick="testMessageBox()">显示 MessageBox</button>
+</body>
+<script src="./js/MessageBox.js">
+</script>
+<script>
+    async function testMessageBox() {``
+        // try {
+        //     // 弹出一个确认框，等待用户的操作
+        //     const result = await MessageBox.confirm('你确定要删除这条记录吗？', '删除确认');
+        //     console.log('用户点击了:', result); // 打印: 用户点击了: confirm
+        // } catch (action) {
+        //     console.log('用户点击了取消或关闭:', action); // 打印: 用户点击了取消或关闭: cancel
+        // }
+
+        let tmpChoice = await MessageBox.confirm('你确定要删除这条记录吗？', '删除确认', "是的", "不好").then(() => {
+            return true;
+        }).catch(() => {
+            return false;
+        })
+
+        if (!tmpChoice) {
+            return;
+        }
+
+        // 弹出一个提示框
+        await MessageBox.alert('操作成功！', '成功', "好嘞🤪");
+        console.log('提示框关闭');
+    }
+</script>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>floatAdd</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<button class="button-3d" onclick="test()">test</button>
+</body>
+<script>
+    function test() {
+        let a = 10;
+        let b = 5;
+        console.error("操作前的值 a:", copy(a));
+        console.error("操作前的值 b:", copy(b));
+
+        floatAdd(a, b);
+
+        console.error("操作后的值 a:", copy(a));
+        console.error("操作后的值 b:", copy(b));
+    }
+
+    function floatAdd(arg1, arg2) {
+        arg1 = arg1.toString(), arg2 = arg2.toString();
+        var arg1Arr = arg1.split("."),
+            arg2Arr = arg2.split("."),
+            d1 = arg1Arr.length == 2 ? arg1Arr[1] : "",
+            d2 = arg2Arr.length == 2 ? arg2Arr[1] : "";
+        var maxLen = Math.max(d1.length, d2.length);
+        var m = Math.pow(10, maxLen);
+        var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen));
+        var d = arguments[2];
+        return typeof d === "number" ? Number((result).toFixed(d)) : result;
+    }
+
+    function copy(obj2) {
+        return JSON.parse(JSON.stringify(obj2));
+    }
+</script>
+</html>
+
